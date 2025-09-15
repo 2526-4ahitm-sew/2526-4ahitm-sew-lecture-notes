@@ -457,7 +457,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_2025_09_15">1. 2025-09-15</a></li>
+<li><a href="#_2025_09_15">1. 2025-09-15</a>
+<ul class="sectlevel2">
+<li><a href="#_konzepte">1.1. Konzepte</a></li>
+<li><a href="#_microservices">1.2. Microservices</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -474,14 +479,280 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_2025_09_15"><a class="anchor" href="#_2025_09_15"></a>1. 2025-09-15</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_konzepte"><a class="anchor" href="#_konzepte"></a>1.1. Konzepte</h3>
+<div class="sect3">
+<h4 id="_internet_für_menschen_personen"><a class="anchor" href="#_internet_für_menschen_personen"></a>1.1.1. Internet für Menschen / Personen</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Webseiten mit html / js / css</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_internet_für_maschinen_und_prozesse_verteilte_systeme"><a class="anchor" href="#_internet_für_maschinen_und_prozesse_verteilte_systeme"></a>1.1.2. Internet für Maschinen und Prozesse (verteilte Systeme)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>(SOAP)</p>
+</li>
+<li>
+<p>REST</p>
+</li>
+<li>
+<p>graphQL</p>
+</li>
+<li>
+<p>gRPC</p>
+</li>
+<li>
+<p>WebSockets</p>
+</li>
+<li>
+<p>SSE</p>
+</li>
+<li>
+<p>MQTT</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_rest"><a class="anchor" href="#_rest"></a>1.1.3. REST</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>REpresentational State Transfer</p>
+</li>
+<li>
+<p>HTTP Methoden</p>
+</li>
+<li>
+<p>Übertragung beliebiger Text-  (HTML, XML, JSON, &#8230;&#8203;) und Binärformate (Images, PDF, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>jedoch relativ starr</p>
+</li>
+<li>
+<p>gut geeignet für CRUD Operationen (Create, Read, Update, Delete)</p>
+</li>
+<li>
+<p>mehrere Endpoint URLs</p>
+</li>
+<li>
+<p>Overhead durch HTTP Header</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+proprietär &#8230;&#8203; firmenspezifisch (nicht offengelegt, nicht standardisiert, nicht interoperabel)
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_graphql"><a class="anchor" href="#_graphql"></a>1.1.4. graphQL</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>von Facebook entwickelt</p>
+</li>
+<li>
+<p>Abfragesprache für APIs</p>
+</li>
+<li>
+<p>flexible Abfragen</p>
+</li>
+<li>
+<p>nur eine einzige Endpoint URL</p>
+</li>
+<li>
+<p>gut geeignet für komplexe Datenstrukturen</p>
+</li>
+<li>
+<p>weniger Overhead als REST</p>
+</li>
+<li>
+<p>stark typisiert</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_grpc"><a class="anchor" href="#_grpc"></a>1.1.5. gRPC</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>von Google entwickelt</p>
+</li>
+<li>
+<p>Remote Procedure Call (RPC) Framework</p>
+</li>
+<li>
+<p>basiert auf HTTP/2</p>
+</li>
+<li>
+<p>unterstützt mehrere Programmiersprachen</p>
+</li>
+<li>
+<p>effizient und schnell</p>
+</li>
+<li>
+<p>stark typisiert</p>
+</li>
+<li>
+<p>unterstützt Streaming</p>
+</li>
+<li>
+<p>benötigt Protokollpuffer (Protocol Buffers) zur Definition der Schnittstellen</p>
+</li>
+<li>
+<p>gut geeignet für Microservices</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_websockets"><a class="anchor" href="#_websockets"></a>1.1.6. WebSockets</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>bidirektionale Kommunikation</p>
+</li>
+<li>
+<p>Echtzeit-Anwendungen</p>
+</li>
+<li>
+<p>text- und binäre Daten</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sse_server_sent_events"><a class="anchor" href="#_sse_server_sent_events"></a>1.1.7. SSE (Server-Sent Events)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>unidirektionale Kommunikation (Server zu Client)</p>
+</li>
+<li>
+<p>Echtzeit-Updates</p>
+</li>
+<li>
+<p>textbasierte Daten (meist JSON)</p>
+</li>
+<li>
+<p>einfach zu implementieren</p>
+</li>
+<li>
+<p>gut geeignet für Benachrichtigungen, Newsfeeds</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mqtt_message_queuing_telemetry_transport"><a class="anchor" href="#_mqtt_message_queuing_telemetry_transport"></a>1.1.8. MQTT (Message Queuing Telemetry Transport)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>leichtgewichtiges Publish-Subscribe-Protokoll</p>
+</li>
+<li>
+<p>für IoT (Internet of Things) entwickelt</p>
+</li>
+<li>
+<p>funktioniert über TCP/IP</p>
+</li>
+<li>
+<p>geringerer Overhead</p>
+</li>
+<li>
+<p>gut geeignet für ressourcenbeschränkte Geräte</p>
+</li>
+<li>
+<p>unterstützt QoS (Quality of Service) Level</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/broker.png" alt="broker">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_publish_subscribe_vs_observer_pattern_vom_copilot"><a class="anchor" href="#_publish_subscribe_vs_observer_pattern_vom_copilot"></a>1.1.9. Publish-Subscribe vs Observer Pattern (vom copilot)</h4>
+<div class="paragraph">
+<p>Der Hauptunterschied zwischen Publish-Subscribe und Observer Pattern liegt in der Entkopplung und dem Kommunikationsmodell:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Observer Pattern:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Direkte Kopplung zwischen Subjekt (Subject) und Beobachtern (Observers).</p>
+</li>
+<li>
+<p>Das Subjekt kennt alle seine Beobachter und benachrichtigt sie direkt bei Änderungen.</p>
+</li>
+<li>
+<p>Wird meist innerhalb einer Anwendung verwendet (z.B. GUI-Events).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Publish-Subscribe:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Lose Kopplung durch einen Vermittler (Message Broker).</p>
+</li>
+<li>
+<p>Publisher und Subscriber kennen sich nicht direkt.</p>
+</li>
+<li>
+<p>Nachrichten werden an einen Kanal/Topic gesendet und von allen interessierten Subscribern empfangen.</p>
+</li>
+<li>
+<p>Häufig in verteilten Systemen eingesetzt (z.B. MQTT, EventBus).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Zusammengefasst: Observer ist direkt und synchron, Publish-Subscribe ist indirekt, asynchron und skalierbarer.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_microservices"><a class="anchor" href="#_microservices"></a>1.2. Microservices</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/microservice.png" alt="microservice">
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2025-09-15 08:25:29 UTC
+Last updated 2025-09-15 09:15:00 UTC
 </div>
 </div>
 </body>
