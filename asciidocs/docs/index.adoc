@@ -16,3 +16,105 @@ icon:home[link=http://edufs.edu.htl-leonding.ac.at/~t.stuetz/hugo/2021/01/lectur
 endif::backend-html5[]
 
 == 2025-09-15
+
+=== Konzepte
+
+==== Internet für Menschen / Personen
+
+* Webseiten mit html / js / css
+
+==== Internet für Maschinen und Prozesse (verteilte Systeme)
+
+* (SOAP)
+* REST
+* graphQL
+* gRPC
+* WebSockets
+* SSE
+* MQTT
+
+
+==== REST
+
+* REpresentational State Transfer
+* HTTP Methoden
+* Übertragung beliebiger Text-  (HTML, XML, JSON, ...) und Binärformate (Images, PDF, ...)
+* jedoch relativ starr
+* gut geeignet für CRUD Operationen (Create, Read, Update, Delete)
+* mehrere Endpoint URLs
+* Overhead durch HTTP Header
+
+IMPORTANT: proprietär ... firmenspezifisch (nicht offengelegt, nicht standardisiert, nicht interoperabel)
+
+==== graphQL
+
+* von Facebook entwickelt
+* Abfragesprache für APIs
+* flexible Abfragen
+* nur eine einzige Endpoint URL
+* gut geeignet für komplexe Datenstrukturen
+* weniger Overhead als REST
+* stark typisiert
+
+==== gRPC
+
+* von Google entwickelt
+* Remote Procedure Call (RPC) Framework
+* basiert auf HTTP/2
+* unterstützt mehrere Programmiersprachen
+* effizient und schnell
+* stark typisiert
+* unterstützt Streaming
+* benötigt Protokollpuffer (Protocol Buffers) zur Definition der Schnittstellen
+* gut geeignet für Microservices
+
+==== WebSockets
+
+* bidirektionale Kommunikation
+* Echtzeit-Anwendungen
+* text- und binäre Daten
+
+
+==== SSE (Server-Sent Events)
+
+* unidirektionale Kommunikation (Server zu Client)
+* Echtzeit-Updates
+* textbasierte Daten (meist JSON)
+* einfach zu implementieren
+* gut geeignet für Benachrichtigungen, Newsfeeds
+
+==== MQTT (Message Queuing Telemetry Transport)
+
+* leichtgewichtiges Publish-Subscribe-Protokoll
+* für IoT (Internet of Things) entwickelt
+* funktioniert über TCP/IP
+* geringerer Overhead
+* gut geeignet für ressourcenbeschränkte Geräte
+* unterstützt QoS (Quality of Service) Level
+
+image::broker.png[]
+
+==== Publish-Subscribe vs Observer Pattern (vom copilot)
+
+Der Hauptunterschied zwischen Publish-Subscribe und Observer Pattern liegt in der Entkopplung und dem Kommunikationsmodell:
+
+* Observer Pattern:
+** Direkte Kopplung zwischen Subjekt (Subject) und Beobachtern (Observers).
+** Das Subjekt kennt alle seine Beobachter und benachrichtigt sie direkt bei Änderungen.
+** Wird meist innerhalb einer Anwendung verwendet (z.B. GUI-Events).
+* Publish-Subscribe:
+** Lose Kopplung durch einen Vermittler (Message Broker).
+** Publisher und Subscriber kennen sich nicht direkt.
+** Nachrichten werden an einen Kanal/Topic gesendet und von allen interessierten Subscribern empfangen.
+** Häufig in verteilten Systemen eingesetzt (z.B. MQTT, EventBus).
+
+Zusammengefasst: Observer ist direkt und synchron, Publish-Subscribe ist indirekt, asynchron und skalierbarer.
+
+=== Microservices
+
+image::microservice.png[]
+
+
+
+
+
