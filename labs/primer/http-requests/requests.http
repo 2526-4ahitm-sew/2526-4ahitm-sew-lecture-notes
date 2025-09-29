@@ -1,0 +1,16 @@
+### hello Request
+
+GET http://localhost:8080/api/hello
+Accept: text/plain
+
+### time request
+
+GET http://localhost:8080/time
+Accept: text/plain
+
+###
+
+GET http://localhost:8080/api/hello
+
+###
+

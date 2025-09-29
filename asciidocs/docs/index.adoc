@@ -120,6 +120,3 @@ Zusammengefasst: Observer ist direkt und synchron, Publish-Subscribe ist indirek
 image::microservice.png[]
 
 
-
-
-
