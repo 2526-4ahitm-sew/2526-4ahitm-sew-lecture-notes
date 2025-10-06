@@ -120,3 +120,40 @@ Zusammengefasst: Observer ist direkt und synchron, Publish-Subscribe ist indirek
 image::microservice.png[]
 
 
+== 2025-10-06
+
+
+JAX-RS (Jakarta RESTful Web Services)
+* ist eine Spzifikation (Standard) für die Entwicklung von RESTful Web Services in Java
+
+* Teil von Jakarta EE (früher Java EE)
+
+=== Response Typen bei JAX-RS
+
+* bei REST-Endpoints können verschiedene Response-Typen zurückgegeben werden, abhängig von der Anforderung und dem Kontext
+
+* die häufigsten Rückgabetypen der REST-Endpoint-Methoden sind:
+
+** String
+** Entity zB Person
+** Response: enthält Statuscode, Header und Entity und mehr zB Cookies
+** ...
+
+
+=== JAX-RS mit Datenbanken
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

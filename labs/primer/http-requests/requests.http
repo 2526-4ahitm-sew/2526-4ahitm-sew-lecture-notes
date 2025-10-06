@@ -11,6 +11,28 @@ Accept: text/plain
 ###
 
 GET http://localhost:8080/api/hello
+Accept: text/plain
 
 ###
+
+GET http://localhost:8080/api/response
+Accept: application/json
+
+###
+
+GET {{ HOST }}/api/persons/string
+Content-Type: application/json
+
+###
+
+GET {{ HOST }}/api/persons/entity
+Content-Type: application/json
+
+###
+
+GET {{ HOST }}/api/persons/response
+Content-Type: application/json
+
+###
+
 
