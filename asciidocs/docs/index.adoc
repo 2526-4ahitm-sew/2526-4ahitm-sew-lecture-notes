@@ -143,6 +143,7 @@ JAX-RS (Jakarta RESTful Web Services)
 === JAX-RS mit Datenbanken
 
 == 2025-09-22
+[Hanan Mehic]
 === Prüfungsfragen
 * Was ist REST?
 * Welche REST-Anforderungen gibt es?
@@ -219,7 +220,7 @@ Ein Software-Prinzip, das besagt:
 > „Wenn du dich an die Konventionen hältst, musst du nichts konfigurieren.“
 
 Das bedeutet, dass Frameworks *Standardverhalten automatisch übernehmen*, solange der Entwickler sich an gewisse Namens- oder Strukturkonventionen hält.
-Beispiel: In Spring Boot wird `application.properties` automatisch erkannt.
+Beispiel: In Quarkus wird `application.properties` automatisch erkannt.
 
 ==== Was ist ein Paradigma?
 Ein *Paradigma* ist ein grundlegendes *Denk- oder Programmierkonzept*, das vorgibt, wie Software strukturiert und entwickelt wird.
