@@ -244,6 +244,40 @@ p1.equals(p2) kann true sein (gleicher Inhalt),
 aber p1 == p2 ist false (unterschiedliche Identität).
 
 
+== 2025-10-13
+
+
+=== CDI - Contexts and Dependency Injection
+
+* Man erzeugt Objekte nicht selbst mit `new`, sondern lässt sie vom Framework bereitstellen (Inversion of Control - IoC)
+
+* zB ohne CDI
++
+[source,java]
+----
+PersonRepository personRepository = new PersonRepository();
+----
+
+
+* zB mit CDI
++
+[source,java]
+----
+@Inject
+PersonRepository personRepository;
+----
+
+* mit Dependency Injection (DI) werden die Referenzen auf - bereits vom übergeordneten DI-Container erzeugte - Objekte automatisch gesetzt -man spricht hier von injizieren.
+
+* Der Begriff Context gibt die Lebensdauer und Sichtbarkeit der Objekte an.
+** @ApplicationScoped
+** @RequestScoped
+** @SessionScoped
+** @Dependent (Standard)
+
+
+
+
 
 
 
