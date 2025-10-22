@@ -275,6 +275,17 @@ PersonRepository personRepository;
 ** @SessionScoped
 ** @Dependent (Standard)
 
+=== JPA (Java Persistence API)
+
+* https://quarkus.io/guides/hibernate-orm
+
+* ORM (Object-Relational Mapping) Bibliothek
+* Abbildung von Java-Klassen auf Datenbanktabellen
+
+* Vorgehensweise:
+
+. DB-Treiber einrichten in pom.xml
+
 
 
 

@@ -1,7 +1,25 @@
 package at.htl.album.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+@NamedQueries({
+        @NamedQuery(
+                name = "Photo.findAll",
+                query = "SELECT p FROM Photo p"
+        ),
+        @NamedQuery(
+                name = "Photo.findByTitle",
+                query = "SELECT p FROM Photo p WHERE p.title LIKE :TITLE"
+        )
+})
+@Entity
 public class Photo {
     private Long albumId;
+
+    @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String url;
@@ -20,14 +38,12 @@ public class Photo {
     }
 
 
-
-
     /**
      * "albumId": 1,
-     *     "id": 4,
-     *     "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
-     *     "url": "https://via.placeholder.com/600/d32776",
-     *     "thumbnailUrl": "https://via.placeholder.com/150/d32776"
+     * "id": 4,
+     * "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
+     * "url": "https://via.placeholder.com/600/d32776",
+     * "thumbnailUrl": "https://via.placeholder.com/150/d32776"
      */
 
 
@@ -71,4 +87,14 @@ public class Photo {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    @Override
+    public String toString() {
+        return "Photo{" +
+               "albumId=" + albumId +
+               ", id=" + id +
+               ", title='" + title + '\'' +
+               ", url='" + url + '\'' +
+               ", thumbnailUrl='" + thumbnailUrl + '\'' +
+               '}';
+    }
 }

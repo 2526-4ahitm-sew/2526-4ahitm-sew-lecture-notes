@@ -32,6 +32,7 @@ class PhotoRepositoryTest {
             new Photo(1L, 10L, "beatae et provident et ut vel", "https://via.placeholder.com/600/810b14", "https://via.placeholder.com/150/810b14")
 
     );
+
     @Test
     void getPhotos_getAllPhotos_returnAllPhotos() throws JsonProcessingException {
         assertThat(photoRepository.getPhotos()).isNotNull();
