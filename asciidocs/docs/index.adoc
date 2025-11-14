@@ -286,6 +286,56 @@ PersonRepository personRepository;
 
 . DB-Treiber einrichten in pom.xml
 
+== 2025-11-03
+
+=== Normalisierung
+- *_Was ist die 1.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Jedes Attribut enthält nur atomare Werte (unteilbar).
+- Es gibt keine wiederholten Gruppen oder Mehrfachwerte.
+- Jede Zeile ist eindeutig identifizierbar (durch Primärschlüssel).
+====
+
+- *_Was ist die 2.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Erfüllt die Anforderungen der 1.NF.
+- Jedes Nicht-Schlüsselattribut ist vollständig funktional abhängig vom gesamten Primärschlüssel
+    (nicht nur von einem Teil davon, wenn der Primärschlüssel aus mehreren Attributen besteht).
+
+====
+
+- *_Was ist die 3.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Erfüllt die Anforderungen der 2.NF.
+- Es gibt keine transitiven Abhängigkeiten zwischen Nicht-Schlüsselattributen.
+    (Ein Nicht-Schlüsselattribut darf nicht von einem anderen Nicht-Schlüsselattribut abhängen).
+====
+
+- *_Warum tut man normalisieren?_*
+
+[%collapsible]
+.Antwort
+====
+- Reduziert Datenredundanz und Inkonsistenzen.
+- Verbessert Datenintegrität.
+- Erleichtert Wartung und Updates der Datenbank.
+
+====
+
+
+
+
+
+
 
 
 
