@@ -325,6 +325,7 @@ PersonRepository personRepository;
 [%collapsible]
 .Antwort
 ====
+- Zur Abfragen der Daten nach unterschiedlichen Dimensionen (zB Kunde nach Region, Produktkategorie, Zeiträume, ...). Die Fakten (Measures) sind meist numerische Werte (zB Umsatz, Menge, ...), die analysiert werden.
 - Reduziert Datenredundanz und Inkonsistenzen.
 - Verbessert Datenintegrität.
 - Erleichtert Wartung und Updates der Datenbank.
