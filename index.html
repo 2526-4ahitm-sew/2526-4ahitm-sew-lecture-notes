@@ -600,6 +600,11 @@ pre.rouge .gs {
 <li><a href="#_jpa_java_persistence_api">6.2. JPA (Java Persistence API)</a></li>
 </ul>
 </li>
+<li><a href="#_2025_11_03">7. 2025-11-03</a>
+<ul class="sectlevel2">
+<li><a href="#_normalisierung">7.1. Normalisierung</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1235,11 +1240,115 @@ aber p1 == p2 ist false (unterschiedliche Identität).</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2025_11_03"><a class="anchor" href="#_2025_11_03"></a>7. 2025-11-03</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_normalisierung"><a class="anchor" href="#_normalisierung"></a>7.1. Normalisierung</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>Was ist die 1.NF?</em></strong></p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Antwort</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Jedes Attribut enthält nur atomare Werte (unteilbar).</p>
+</li>
+<li>
+<p>Es gibt keine wiederholten Gruppen oder Mehrfachwerte.</p>
+</li>
+<li>
+<p>Jede Zeile ist eindeutig identifizierbar (durch Primärschlüssel).</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>Was ist die 2.NF?</em></strong></p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Antwort</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Erfüllt die Anforderungen der 1.NF.</p>
+</li>
+<li>
+<p>Jedes Nicht-Schlüsselattribut ist vollständig funktional abhängig vom gesamten Primärschlüssel
+(nicht nur von einem Teil davon, wenn der Primärschlüssel aus mehreren Attributen besteht).</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>Was ist die 3.NF?</em></strong></p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Antwort</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Erfüllt die Anforderungen der 2.NF.</p>
+</li>
+<li>
+<p>Es gibt keine transitiven Abhängigkeiten zwischen Nicht-Schlüsselattributen.
+(Ein Nicht-Schlüsselattribut darf nicht von einem anderen Nicht-Schlüsselattribut abhängen).</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>Warum tut man normalisieren?</em></strong></p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Antwort</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Reduziert Datenredundanz und Inkonsistenzen.</p>
+</li>
+<li>
+<p>Verbessert Datenintegrität.</p>
+</li>
+<li>
+<p>Erleichtert Wartung und Updates der Datenbank.</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2025-11-14 11:33:19 UTC
+Last updated 2025-11-14 11:33:36 UTC
 </div>
 </div>
 </body>
