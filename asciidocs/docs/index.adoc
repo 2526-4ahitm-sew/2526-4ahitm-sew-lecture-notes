@@ -429,14 +429,18 @@ void testAdd() {
 
 ==== Stammdaten & Bewegungsdaten
 
+* entstehen in Geschäftsprozessen
+
 * **Stammdaten**
-** Langfristig gültige, selten veränderte Grunddaten
+
+** Langfristig gültige (mehrere Geschäftsjahre), selten veränderte Grunddaten (ev. die Adresse eines Kunden oder Mitarbeiters)
 ** Beschreiben Objekte/Personen unabhängig von Vorgängen
 ** Beispiele: Kunden, Produkte, Mitarbeiter
 
 * **Bewegungsdaten**
-** Kurzfristig gültige Daten, entstehen durch Geschäftsprozesse
+** sind meist einer Periode zuzuordnen, zB einem Geschäftsjahr
 ** Verändern sich laufend, beziehen sich auf Stammdaten
+** werden eher nie verändert: zB wird eine Rechnung nicht mehr geändert, wenn sie einmal erstellt wurde
 ** Beispiele: Bestellungen, Rechnungen, Buchungen
 
 
