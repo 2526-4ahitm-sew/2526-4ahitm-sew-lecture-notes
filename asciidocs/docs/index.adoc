@@ -286,13 +286,73 @@ PersonRepository personRepository;
 
 . DB-Treiber einrichten in pom.xml
 
-== 2025-11-10
 
-==== 1. Test – Stoff
+
+
+== 2025-11-03
+[Mahmutovic]
+
+=== Normalisierung
+- *_Was ist die 1.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Jedes Attribut enthält nur atomare Werte (unteilbar).
+- Es gibt keine wiederholten Gruppen oder Mehrfachwerte.
+- Jede Zeile ist eindeutig identifizierbar (durch Primärschlüssel).
+====
+
+- *_Was ist die 2.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Erfüllt die Anforderungen der 1.NF.
+- Jedes Nicht-Schlüsselattribut ist vollständig funktional abhängig vom gesamten Primärschlüssel
+(nicht nur von einem Teil davon, wenn der Primärschlüssel aus mehreren Attributen besteht).
+
+====
+
+- *_Was ist die 3.NF?_*
+
+[%collapsible]
+.Antwort
+====
+- Erfüllt die Anforderungen der 2.NF.
+- Es gibt keine transitiven Abhängigkeiten zwischen Nicht-Schlüsselattributen.
+(Ein Nicht-Schlüsselattribut darf nicht von einem anderen Nicht-Schlüsselattribut abhängen).
+====
+
+- *_Warum tut man normalisieren?_*
+
+[%collapsible]
+.Antwort
+====
+- Zur Abfragen der Daten nach unterschiedlichen Dimensionen (zB Kunde nach Region, Produktkategorie, Zeiträume, ...). Die Fakten (Measures) sind meist numerische Werte (zB Umsatz, Menge, ...), die analysiert werden.
+- Reduziert Datenredundanz und Inkonsistenzen.
+- Verbessert Datenintegrität.
+- Erleichtert Wartung und Updates der Datenbank.
+
+====
+
+image::informationswuerfel.png[]
+
+
+
+
+
+
+
+== 2025-11-10
+[Hanan Mehic]
+
+=== 1. Test – Stoff
 
 * Datenmodell aufsetzen
 * Testfälle schreiben
 * AssertJ-DB
+* REST-Services
 
 ==== Was sind Entity-Klassen?
 
@@ -300,11 +360,18 @@ PersonRepository personRepository;
 * Werden per JPA/Hibernate einer Datenbanktabelle zugeordnet
 * Felder entsprechen Tabellenspalten
 * Besitzen mindestens einen Primärschlüssel (`@Id`)
-* Dienen als Abbild der tatsächlichen Geschäftsobjekte (z. B. User, Product, Cart) -> Bsp: Wie in den Filmen früher, die Regale in denen die Akten der Leute waren
+* Dienen als Abbild der tatsächlichen Geschäftsobjekte (z. B. User, Product, Cart) -> Bsp: Früher wurden diese Daten in Aktenschränken / -ordnern aufbewahrt, heute in Datenbanken.
+
+
+image::filing-cabinet.png[width=500]
+
+
+
+
 
 === Klassendiagramm angezeigt bekommen
-* Klassen markieren -> rechtsklick -> Diagramms -> Java Klassen -> Diagram wird angezeigt
-** Fields Feld und show Dependencies anklicken -> Beziehungen und Attribute werden angegzeigt.
+* Klassen markieren -> Rechtsklick -> Diagrams -> Java Klassen -> Diagram wird angezeigt
+** Fields und show Dependencies anklicken -> Beziehungen und Attribute werden angegzeigt.
 ** Rechtsklick im Diagramm -> Layout -> Nets -> organic
 ** Rechtsklick im Diagramm -> Appearance -> Standard
 
@@ -374,52 +441,6 @@ void testAdd() {
 
 
 image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
-== 2025-11-03
-
-=== Normalisierung
-- *_Was ist die 1.NF?_*
-
-[%collapsible]
-.Antwort
-====
-- Jedes Attribut enthält nur atomare Werte (unteilbar).
-- Es gibt keine wiederholten Gruppen oder Mehrfachwerte.
-- Jede Zeile ist eindeutig identifizierbar (durch Primärschlüssel).
-====
-
-- *_Was ist die 2.NF?_*
-
-[%collapsible]
-.Antwort
-====
-- Erfüllt die Anforderungen der 1.NF.
-- Jedes Nicht-Schlüsselattribut ist vollständig funktional abhängig vom gesamten Primärschlüssel
-    (nicht nur von einem Teil davon, wenn der Primärschlüssel aus mehreren Attributen besteht).
-
-====
-
-- *_Was ist die 3.NF?_*
-
-[%collapsible]
-.Antwort
-====
-- Erfüllt die Anforderungen der 2.NF.
-- Es gibt keine transitiven Abhängigkeiten zwischen Nicht-Schlüsselattributen.
-    (Ein Nicht-Schlüsselattribut darf nicht von einem anderen Nicht-Schlüsselattribut abhängen).
-====
-
-- *_Warum tut man normalisieren?_*
-
-[%collapsible]
-.Antwort
-====
-- Zur Abfragen der Daten nach unterschiedlichen Dimensionen (zB Kunde nach Region, Produktkategorie, Zeiträume, ...). Die Fakten (Measures) sind meist numerische Werte (zB Umsatz, Menge, ...), die analysiert werden.
-- Reduziert Datenredundanz und Inkonsistenzen.
-- Verbessert Datenintegrität.
-- Erleichtert Wartung und Updates der Datenbank.
-
-====
-
 
 
 
