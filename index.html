@@ -600,17 +600,16 @@ pre.rouge .gs {
 <li><a href="#_jpa_java_persistence_api">6.2. JPA (Java Persistence API)</a></li>
 </ul>
 </li>
-<li><a href="#_2025_11_10">7. 2025-11-10</a>
-<ul class="sectlevel3">
-<li><a href="#_1_test_stoff">7.1. 1. Test – Stoff</a></li>
-<li><a href="#_was_sind_entity_klassen">7.2. Was sind Entity-Klassen?</a></li>
-<li><a href="#_klassendiagramm_angezeigt_bekommen">7.3. Klassendiagramm angezeigt bekommen</a></li>
-<li><a href="#_beziehungen">7.4. Beziehungen</a></li>
+<li><a href="#_2025_11_03">7. 2025-11-03</a>
+<ul class="sectlevel2">
+<li><a href="#_normalisierung">Normalisierung</a></li>
 </ul>
 </li>
-<li><a href="#_2025_11_03">8. 2025-11-03</a>
+<li><a href="#_2025_11_10">8. 2025-11-10</a>
 <ul class="sectlevel2">
-<li><a href="#_normalisierung">8.1. Normalisierung</a></li>
+<li><a href="#_1_test_stoff">1. Test – Stoff</a></li>
+<li><a href="#_klassendiagramm_angezeigt_bekommen">8.1. Klassendiagramm angezeigt bekommen</a></li>
+<li><a href="#_beziehungen">8.2. Beziehungen</a></li>
 </ul>
 </li>
 </ul>
@@ -1249,217 +1248,10 @@ aber p1 == p2 ist false (unterschiedliche Identität).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2025_11_10"><a class="anchor" href="#_2025_11_10"></a>7. 2025-11-10</h2>
-<div class="sectionbody">
-<div class="sect3">
-<h4 id="_1_test_stoff"><a class="anchor" href="#_1_test_stoff"></a>7.1. 1. Test – Stoff</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Datenmodell aufsetzen</p>
-</li>
-<li>
-<p>Testfälle schreiben</p>
-</li>
-<li>
-<p>AssertJ-DB</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_was_sind_entity_klassen"><a class="anchor" href="#_was_sind_entity_klassen"></a>7.2. Was sind Entity-Klassen?</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Java-Klassen, die mit <code>@Entity</code> annotiert sind</p>
-</li>
-<li>
-<p>Werden per JPA/Hibernate einer Datenbanktabelle zugeordnet</p>
-</li>
-<li>
-<p>Felder entsprechen Tabellenspalten</p>
-</li>
-<li>
-<p>Besitzen mindestens einen Primärschlüssel (<code>@Id</code>)</p>
-</li>
-<li>
-<p>Dienen als Abbild der tatsächlichen Geschäftsobjekte (z. B. User, Product, Cart) &#8594; Bsp: Wie in den Filmen früher, die Regale in denen die Akten der Leute waren</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_klassendiagramm_angezeigt_bekommen"><a class="anchor" href="#_klassendiagramm_angezeigt_bekommen"></a>7.3. Klassendiagramm angezeigt bekommen</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Klassen markieren &#8594; rechtsklick &#8594; Diagramms &#8594; Java Klassen &#8594; Diagram wird angezeigt</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Fields Feld und show Dependencies anklicken &#8594; Beziehungen und Attribute werden angegzeigt.</p>
-</li>
-<li>
-<p>Rechtsklick im Diagramm &#8594; Layout &#8594; Nets &#8594; organic</p>
-</li>
-<li>
-<p>Rechtsklick im Diagramm &#8594; Appearance &#8594; Standard</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_beziehungen"><a class="anchor" href="#_beziehungen"></a>7.4. Beziehungen</h3>
-<div class="sect3">
-<h4 id="_fetch_strategien_lazy_vs_eager"><a class="anchor" href="#_fetch_strategien_lazy_vs_eager"></a>7.4.1. Fetch-Strategien — LAZY vs. EAGER</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>LAZY (Standard bei 1:n, n:m)</strong>
-Daten werden erst geladen, wenn darauf zugegriffen wird → bessere Performance</p>
-</li>
-<li>
-<p><strong>EAGER (Standard bei 1:1, n:1)</strong>
-Verknüpfte Daten werden sofort mitgeladen → kann mehr laden als nötig</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Faustregel:</strong>
-→ Immer <strong>LAZY</strong>, außer es gibt einen guten Grund.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_kardinalität_multiplizität"><a class="anchor" href="#_kardinalität_multiplizität"></a>7.4.2. Kardinalität / Multiplizität</h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Annotation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beziehung</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bedeutung</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@OneToOne</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 : 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Objekt → ein Objekt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@OneToMany</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 : n</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Objekt → viele</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@ManyToOne</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">n : 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Viele → eins</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@ManyToMany</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">n : m</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Viele ↔ viele</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_triple_a_pattern_aaa"><a class="anchor" href="#_triple_a_pattern_aaa"></a>7.4.3. Triple-A-Pattern (AAA)</h4>
-<div class="paragraph">
-<p>Strukturierungskonzept für Unit-Tests → klar, einfach, gut lesbar.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Arrange</strong>
-Test vorbereiten: Objekte anlegen, Daten initialisieren, mocks konfigurieren</p>
-</li>
-<li>
-<p><strong>Act</strong>
-Aktion ausführen: die zu testende Methode aufrufen</p>
-</li>
-<li>
-<p><strong>Assert</strong>
-Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Beispiel</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Test</span>
-<span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
-    <span class="c1">// Arrange</span>
-    <span class="nc">Calculator</span> <span class="n">calc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Calculator</span><span class="o">();</span>
-
-    <span class="c1">// Act</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
-
-    <span class="c1">// Assert</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
-<span class="o">}</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_stammdaten_bewegungsdaten"><a class="anchor" href="#_stammdaten_bewegungsdaten"></a>7.4.4. Stammdaten &amp; Bewegungsdaten</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Stammdaten</strong></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Langfristig gültige, selten veränderte Grunddaten</p>
-</li>
-<li>
-<p>Beschreiben Objekte/Personen unabhängig von Vorgängen</p>
-</li>
-<li>
-<p>Beispiele: Kunden, Produkte, Mitarbeiter</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Bewegungsdaten</strong></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Kurzfristig gültige Daten, entstehen durch Geschäftsprozesse</p>
-</li>
-<li>
-<p>Verändern sich laufend, beziehen sich auf Stammdaten</p>
-</li>
-<li>
-<p>Beispiele: Bestellungen, Rechnungen, Buchungen</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="images/stammdaten_bewegungsdaten.jpeg" alt="stammdaten bewegungsdaten" width="500">
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_2025_11_03"><a class="anchor" href="#_2025_11_03"></a>8. 2025-11-03</h2>
+<h2 id="_2025_11_03"><a class="anchor" href="#_2025_11_03"></a>7. 2025-11-03</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_normalisierung"><a class="anchor" href="#_normalisierung"></a>8.1. Normalisierung</h3>
+<h3 id="_normalisierung"><a class="anchor" href="#_normalisierung"></a>Normalisierung</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1559,6 +1351,226 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 </details>
+<div class="imageblock">
+<div class="content">
+<img src="images/informationswuerfel.png" alt="informationswuerfel">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2025_11_10"><a class="anchor" href="#_2025_11_10"></a>8. 2025-11-10</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_test_stoff"><a class="anchor" href="#_1_test_stoff"></a>1. Test – Stoff</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Datenmodell aufsetzen</p>
+</li>
+<li>
+<p>Testfälle schreiben</p>
+</li>
+<li>
+<p>AssertJ-DB</p>
+</li>
+<li>
+<p>REST-Services</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_was_sind_entity_klassen"><a class="anchor" href="#_was_sind_entity_klassen"></a>Was sind Entity-Klassen?</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Java-Klassen, die mit <code>@Entity</code> annotiert sind</p>
+</li>
+<li>
+<p>Werden per JPA/Hibernate einer Datenbanktabelle zugeordnet</p>
+</li>
+<li>
+<p>Felder entsprechen Tabellenspalten</p>
+</li>
+<li>
+<p>Besitzen mindestens einen Primärschlüssel (<code>@Id</code>)</p>
+</li>
+<li>
+<p>Dienen als Abbild der tatsächlichen Geschäftsobjekte (z. B. User, Product, Cart) &#8594; Bsp: Früher wurden diese Daten in Aktenschränken / -ordnern aufbewahrt, heute in Datenbanken.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/filing-cabinet.png" alt="filing cabinet" width="500">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_klassendiagramm_angezeigt_bekommen"><a class="anchor" href="#_klassendiagramm_angezeigt_bekommen"></a>8.1. Klassendiagramm angezeigt bekommen</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Klassen markieren &#8594; Rechtsklick &#8594; Diagrams &#8594; Java Klassen &#8594; Diagram wird angezeigt</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fields und show Dependencies anklicken &#8594; Beziehungen und Attribute werden angegzeigt.</p>
+</li>
+<li>
+<p>Rechtsklick im Diagramm &#8594; Layout &#8594; Nets &#8594; organic</p>
+</li>
+<li>
+<p>Rechtsklick im Diagramm &#8594; Appearance &#8594; Standard</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_beziehungen"><a class="anchor" href="#_beziehungen"></a>8.2. Beziehungen</h3>
+<div class="sect3">
+<h4 id="_fetch_strategien_lazy_vs_eager"><a class="anchor" href="#_fetch_strategien_lazy_vs_eager"></a>8.2.1. Fetch-Strategien — LAZY vs. EAGER</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>LAZY (Standard bei 1:n, n:m)</strong>
+Daten werden erst geladen, wenn darauf zugegriffen wird → bessere Performance</p>
+</li>
+<li>
+<p><strong>EAGER (Standard bei 1:1, n:1)</strong>
+Verknüpfte Daten werden sofort mitgeladen → kann mehr laden als nötig</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Faustregel:</strong>
+→ Immer <strong>LAZY</strong>, außer es gibt einen guten Grund.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_kardinalität_multiplizität"><a class="anchor" href="#_kardinalität_multiplizität"></a>8.2.2. Kardinalität / Multiplizität</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Annotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beziehung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bedeutung</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@OneToOne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 : 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Objekt → ein Objekt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@OneToMany</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 : n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Objekt → viele</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@ManyToOne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n : 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Viele → eins</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@ManyToMany</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n : m</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Viele ↔ viele</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_triple_a_pattern_aaa"><a class="anchor" href="#_triple_a_pattern_aaa"></a>8.2.3. Triple-A-Pattern (AAA)</h4>
+<div class="paragraph">
+<p>Strukturierungskonzept für Unit-Tests → klar, einfach, gut lesbar.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Arrange</strong>
+Test vorbereiten: Objekte anlegen, Daten initialisieren, mocks konfigurieren</p>
+</li>
+<li>
+<p><strong>Act</strong>
+Aktion ausführen: die zu testende Methode aufrufen</p>
+</li>
+<li>
+<p><strong>Assert</strong>
+Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Beispiel</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// Arrange</span>
+    <span class="nc">Calculator</span> <span class="n">calc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Calculator</span><span class="o">();</span>
+
+    <span class="c1">// Act</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+
+    <span class="c1">// Assert</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stammdaten_bewegungsdaten"><a class="anchor" href="#_stammdaten_bewegungsdaten"></a>8.2.4. Stammdaten &amp; Bewegungsdaten</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Stammdaten</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Langfristig gültige, selten veränderte Grunddaten</p>
+</li>
+<li>
+<p>Beschreiben Objekte/Personen unabhängig von Vorgängen</p>
+</li>
+<li>
+<p>Beispiele: Kunden, Produkte, Mitarbeiter</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Bewegungsdaten</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Kurzfristig gültige Daten, entstehen durch Geschäftsprozesse</p>
+</li>
+<li>
+<p>Verändern sich laufend, beziehen sich auf Stammdaten</p>
+</li>
+<li>
+<p>Beispiele: Bestellungen, Rechnungen, Buchungen</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="images/stammdaten_bewegungsdaten.jpeg" alt="stammdaten bewegungsdaten" width="500">
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1566,7 +1578,7 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2025-11-23 07:28:46 UTC
+Last updated 2025-11-23 07:51:03 UTC
 </div>
 </div>
 </body>
