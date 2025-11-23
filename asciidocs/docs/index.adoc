@@ -286,6 +286,94 @@ PersonRepository personRepository;
 
 . DB-Treiber einrichten in pom.xml
 
+== 2025-11-10
+
+==== 1. Test – Stoff
+
+* Datenmodell aufsetzen
+* Testfälle schreiben
+* AssertJ-DB
+
+==== Was sind Entity-Klassen?
+
+* Java-Klassen, die mit `@Entity` annotiert sind
+* Werden per JPA/Hibernate einer Datenbanktabelle zugeordnet
+* Felder entsprechen Tabellenspalten
+* Besitzen mindestens einen Primärschlüssel (`@Id`)
+* Dienen als Abbild der tatsächlichen Geschäftsobjekte (z. B. User, Product, Cart) -> Bsp: Wie in den Filmen früher, die Regale in denen die Akten der Leute waren
+
+=== Klassendiagramm angezeigt bekommen
+* Klassen markieren -> rechtsklick -> Diagramms -> Java Klassen -> Diagram wird angezeigt
+** Fields Feld und show Dependencies anklicken -> Beziehungen und Attribute werden angegzeigt.
+** Rechtsklick im Diagramm -> Layout -> Nets -> organic
+** Rechtsklick im Diagramm -> Appearance -> Standard
+
+=== Beziehungen
+==== Fetch-Strategien — LAZY vs. EAGER
+
+* **LAZY (Standard bei 1:n, n:m)**
+Daten werden erst geladen, wenn darauf zugegriffen wird → bessere Performance
+
+* **EAGER (Standard bei 1:1, n:1)**
+Verknüpfte Daten werden sofort mitgeladen → kann mehr laden als nötig
+
+*Faustregel:*
+→ Immer **LAZY**, außer es gibt einen guten Grund.
+
+==== Kardinalität / Multiplizität
+
+|===
+| Annotation     | Beziehung | Bedeutung
+| @OneToOne      | 1 : 1     | Ein Objekt → ein Objekt
+| @OneToMany     | 1 : n     | Ein Objekt → viele
+| @ManyToOne     | n : 1     | Viele → eins
+| @ManyToMany    | n : m     | Viele ↔ viele
+|===
+
+==== Triple-A-Pattern (AAA)
+
+Strukturierungskonzept für Unit-Tests → klar, einfach, gut lesbar.
+
+* **Arrange**
+Test vorbereiten: Objekte anlegen, Daten initialisieren, mocks konfigurieren
+
+* **Act**
+Aktion ausführen: die zu testende Methode aufrufen
+
+* **Assert**
+Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen
+
+.Beispiel
+[source,java]
+----
+@Test
+void testAdd() {
+    // Arrange
+    Calculator calc = new Calculator();
+
+    // Act
+    int result = calc.add(2, 3);
+
+    // Assert
+    assertEquals(5, result);
+}
+----
+
+
+==== Stammdaten & Bewegungsdaten
+
+* **Stammdaten**
+** Langfristig gültige, selten veränderte Grunddaten
+** Beschreiben Objekte/Personen unabhängig von Vorgängen
+** Beispiele: Kunden, Produkte, Mitarbeiter
+
+* **Bewegungsdaten**
+** Kurzfristig gültige Daten, entstehen durch Geschäftsprozesse
+** Verändern sich laufend, beziehen sich auf Stammdaten
+** Beispiele: Bestellungen, Rechnungen, Buchungen
+
+
+image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
 == 2025-11-03
 
 === Normalisierung
