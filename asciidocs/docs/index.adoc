@@ -475,7 +475,7 @@ image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
 * http://bit.ly/htlleonding-scripts
 
 
-== 22026-02-09
+== 2026-02-09
 
 === graphQL
 
@@ -490,6 +490,8 @@ image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
 === Angular-Beispiel
 
 * Routing
+
+== 2026-02-23
 
 
 
