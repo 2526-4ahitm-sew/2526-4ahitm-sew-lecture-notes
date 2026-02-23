@@ -493,10 +493,67 @@ image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
 
 == 2026-02-23
 
+* graphQL-Beispiel besprochen
 
+* Was ist ein graphQL-Schema?
 
+** Ein graphQL-Schema definiert die Struktur der Daten, die von einem graphQL-Server bereitgestellt werden. Es beschreibt die verfügbaren Typen, Felder und Beziehungen zwischen den Daten.
+** Es dient als Vertrag zwischen Client und Server, der festlegt, welche Daten abgefragt werden können und wie sie strukturiert sind.
 
+* graphQL-Endpoint
 
+[source,java]
+----
+package at.htl.vehicle.boundary;
+
+import at.htl.vehicle.control.VehicleRepository;
+import at.htl.vehicle.entity.Vehicle;
+import org.eclipse.microprofile.graphql.*;
+
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import java.util.List;
+
+@GraphQLApi
+public class VehicleGraphQlApi {
+
+    @Inject
+    VehicleRepository vehicleRepository;
+
+    @Query("allVehicles")
+    @Description("Get all vehicles from the gallery")
+    public List<Vehicle> getAllVehicles() {
+        return vehicleRepository.listAll();
+    }
+
+    @Query("vehicle")
+    @Description("Get a specific vehicle by its id")
+    public Vehicle getVehicle(@Name("vehicleId") Long id) {
+        return vehicleRepository.findById(id);
+    }
+
+    @Mutation("createVehicle")
+    @Description("Add a new vehicle to the gallery")
+    @Transactional
+    public Vehicle createVehicle(Vehicle vehicle) {
+        vehicleRepository.persist(vehicle);
+        return vehicle;
+    }
+
+    @Mutation("deleteVehicle")
+    @Description("Remove a vehicle from the gallery")
+    @Transactional
+    public boolean deleteVehicle(@Name("vehicleId") Long id) {
+        return vehicleRepository.deleteById(id);
+    }
+}
+
+----
+
+* graphQL-Clients
+
+** Debug-page
+** intellij-client
 
 
 
