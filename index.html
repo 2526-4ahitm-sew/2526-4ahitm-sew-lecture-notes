@@ -1701,14 +1701,100 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 <div class="sect1">
 <h2 id="_2026_02_23"><a class="anchor" href="#_2026_02_23"></a>11. 2026-02-23</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>graphQL-Beispiel besprochen</p>
+</li>
+<li>
+<p>Was ist ein graphQL-Schema?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ein graphQL-Schema definiert die Struktur der Daten, die von einem graphQL-Server bereitgestellt werden. Es beschreibt die verfügbaren Typen, Felder und Beziehungen zwischen den Daten.</p>
+</li>
+<li>
+<p>Es dient als Vertrag zwischen Client und Server, der festlegt, welche Daten abgefragt werden können und wie sie strukturiert sind.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>graphQL-Endpoint</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">at.htl.vehicle.boundary</span><span class="o">;</span>
 
+<span class="kn">import</span> <span class="nn">at.htl.vehicle.control.VehicleRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">at.htl.vehicle.entity.Vehicle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.microprofile.graphql.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">jakarta.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jakarta.transaction.Transactional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="nd">@GraphQLApi</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VehicleGraphQlApi</span> <span class="o">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="nc">VehicleRepository</span> <span class="n">vehicleRepository</span><span class="o">;</span>
+
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"allVehicles"</span><span class="o">)</span>
+    <span class="nd">@Description</span><span class="o">(</span><span class="s">"Get all vehicles from the gallery"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Vehicle</span><span class="o">&gt;</span> <span class="nf">getAllVehicles</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">vehicleRepository</span><span class="o">.</span><span class="na">listAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"vehicle"</span><span class="o">)</span>
+    <span class="nd">@Description</span><span class="o">(</span><span class="s">"Get a specific vehicle by its id"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Vehicle</span> <span class="nf">getVehicle</span><span class="o">(</span><span class="nd">@Name</span><span class="o">(</span><span class="s">"vehicleId"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">vehicleRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Mutation</span><span class="o">(</span><span class="s">"createVehicle"</span><span class="o">)</span>
+    <span class="nd">@Description</span><span class="o">(</span><span class="s">"Add a new vehicle to the gallery"</span><span class="o">)</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="nc">Vehicle</span> <span class="nf">createVehicle</span><span class="o">(</span><span class="nc">Vehicle</span> <span class="n">vehicle</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">vehicleRepository</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">vehicle</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">vehicle</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Mutation</span><span class="o">(</span><span class="s">"deleteVehicle"</span><span class="o">)</span>
+    <span class="nd">@Description</span><span class="o">(</span><span class="s">"Remove a vehicle from the gallery"</span><span class="o">)</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">deleteVehicle</span><span class="o">(</span><span class="nd">@Name</span><span class="o">(</span><span class="s">"vehicleId"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">vehicleRepository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>graphQL-Clients</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Debug-page</p>
+</li>
+<li>
+<p>intellij-client</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-02-23 07:29:37 UTC
+Last updated 2026-02-23 10:09:09 UTC
 </div>
 </div>
 </body>
