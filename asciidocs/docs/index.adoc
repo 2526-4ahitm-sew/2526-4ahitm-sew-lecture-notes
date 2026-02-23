@@ -446,8 +446,50 @@ void testAdd() {
 
 image::stammdaten_bewegungsdaten.jpeg[width=500,align=center]
 
+== 2026-01-12
+
+=== Informationswürfel
+
+=== ORM / JPA
+
+* Specification ... technische Beschreibung
 
 
+* https://jakarta.ee/specifications/persistence/
+
+=== Panache
+
+* https://quarkus.io/guides/hibernate-orm-panache
+
+* Wir verwenden ausschließlich das Repository Pattern (auch DAO Pattern genannt)
+
+==== Paging
+
+=== Sorting
+
+=== Query Methods
+
+
+=== Beispiel Panache
+
+* http://bit.ly/htlleonding-scripts
+
+
+== 22026-02-09
+
+=== graphQL
+
+* Warum graphQL?
+
+** Flexibilität: Clients können genau die Daten anfordern, die sie benötigen, und nicht mehr.
+** Effizienz: Reduziert die Anzahl der Anfragen, da mehrere Ressourcen in einer einzigen Anfrage abgefragt werden können.
+** Starke Typisierung: Das Schema definiert die verfügbaren Daten und deren Typen,was die Entwicklung und Fehlersuche erleichtert.
+** Echtzeit-Updates: Unterstützt Subscriptions für Echtzeit-Kommunikation.
+** Gute Dokumentation: Das Schema dient als Dokumentation der API
+
+=== Angular-Beispiel
+
+* Routing
 
 
 
