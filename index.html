@@ -638,16 +638,6 @@ pre.rouge .gs {
 <li><a href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus">12.5. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</a></li>
 </ul>
 </li>
-<li><a href="#_die_kurze_antwort">13. Die kurze Antwort</a></li>
-<li><a href="#_warum_kein_response_objekt">14. Warum kein Response-Objekt?</a>
-<ul class="sectlevel2">
-<li><a href="#_1_der_http_statuscode_ist_fast_immer_200">14.1. 1. Der HTTP-Statuscode ist (fast) immer 200</a></li>
-<li><a href="#_2_automatische_kapselung_durch_smallrye">14.2. 2. Automatische Kapselung durch SmallRye</a></li>
-<li><a href="#_3_fehlerbehandlung_via_exceptions">14.3. 3. Fehlerbehandlung via Exceptions</a></li>
-</ul>
-</li>
-<li><a href="#_vergleich_rest_vs_graphql">15. Vergleich: REST vs. GraphQL</a></li>
-<li><a href="#_code_beispiel_quarkus_graphql">16. Code-Beispiel (Quarkus GraphQL)</a></li>
 </ul>
 </div>
 </div>
@@ -2067,12 +2057,8 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 <div class="paragraph">
 <p>In Quarkus (SmallRye GraphQL) ist es ein fundamentaler Unterschied zu JAX-RS (REST), wie Antworten an den Client gesendet werden.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_die_kurze_antwort"><a class="anchor" href="#_die_kurze_antwort"></a>13. Die kurze Antwort</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_die_kurze_antwort"><a class="anchor" href="#_die_kurze_antwort"></a>12.5.1. Die kurze Antwort</h4>
 <div class="paragraph">
 <p>In GraphQL ist es absolut <strong>unüblich</strong>, ein generisches <code>Response</code>-Objekt (wie <code>javax.ws.rs.core.Response</code>) zurückzugeben.</p>
 </div>
@@ -2080,20 +2066,18 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 <p>Während du in REST Header, Statuscodes und Body manuell verpackst, übernimmt bei GraphQL das Framework die Kapselung der Daten.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_warum_kein_response_objekt"><a class="anchor" href="#_warum_kein_response_objekt"></a>14. Warum kein Response-Objekt?</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_1_der_http_statuscode_ist_fast_immer_200"><a class="anchor" href="#_1_der_http_statuscode_ist_fast_immer_200"></a>14.1. 1. Der HTTP-Statuscode ist (fast) immer 200</h3>
+<div class="sect3">
+<h4 id="_warum_kein_response_objekt"><a class="anchor" href="#_warum_kein_response_objekt"></a>12.5.2. Warum kein Response-Objekt?</h4>
+<div class="sect4">
+<h5 id="_1_der_http_statuscode_ist_fast_immer_200"><a class="anchor" href="#_1_der_http_statuscode_ist_fast_immer_200"></a>1. Der HTTP-Statuscode ist (fast) immer 200</h5>
 <div class="paragraph">
 <p>Im Gegensatz zu REST landen alle GraphQL-Anfragen per POST auf einem einzigen Endpunkt (meist <code>/graphql</code>).
 * Selbst bei fachlichen Fehlern antwortet der Server technisch mit einem <strong>HTTP 200 OK</strong>.
 * Fehlerinformationen werden im <code>errors</code>-Feld des JSON-Bodys transportiert, nicht über den HTTP-Header.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_2_automatische_kapselung_durch_smallrye"><a class="anchor" href="#_2_automatische_kapselung_durch_smallrye"></a>14.2. 2. Automatische Kapselung durch SmallRye</h3>
+<div class="sect4">
+<h5 id="_2_automatische_kapselung_durch_smallrye"><a class="anchor" href="#_2_automatische_kapselung_durch_smallrye"></a>2. Automatische Kapselung durch SmallRye</h5>
 <div class="paragraph">
 <p>Wenn du ein POJO oder eine Entity zurückgibst, baut das Framework automatisch das standardisierte GraphQL-Antwortformat:</p>
 </div>
@@ -2108,17 +2092,15 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_3_fehlerbehandlung_via_exceptions"><a class="anchor" href="#_3_fehlerbehandlung_via_exceptions"></a>14.3. 3. Fehlerbehandlung via Exceptions</h3>
+<div class="sect4">
+<h5 id="_3_fehlerbehandlung_via_exceptions"><a class="anchor" href="#_3_fehlerbehandlung_via_exceptions"></a>3. Fehlerbehandlung via Exceptions</h5>
 <div class="paragraph">
 <p>Statt <code>Response.status(404).build()</code> zu nutzen, wirfst du in GraphQL einfach eine Exception. Diese wird automatisch in das <code>errors</code>-Array übersetzt.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_vergleich_rest_vs_graphql"><a class="anchor" href="#_vergleich_rest_vs_graphql"></a>15. Vergleich: REST vs. GraphQL</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_vergleich_rest_vs_graphql"><a class="anchor" href="#_vergleich_rest_vs_graphql"></a>12.5.3. Vergleich: REST vs. GraphQL</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -2150,11 +2132,8 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_code_beispiel_quarkus_graphql"><a class="anchor" href="#_code_beispiel_quarkus_graphql"></a>16. Code-Beispiel (Quarkus GraphQL)</h2>
-<div class="sectionbody">
+<div class="sect4">
+<h5 id="_code_beispiel_quarkus_graphql"><a class="anchor" href="#_code_beispiel_quarkus_graphql"></a>Code-Beispiel (Quarkus GraphQL)</h5>
 <div class="paragraph">
 <p>So implementierst du einen sauberen Endpoint ohne manuelles Response-Objekt:</p>
 </div>
@@ -2188,10 +2167,13 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-03-02 09:53:22 UTC
+Last updated 2026-03-02 11:03:01 UTC
 </div>
 </div>
 </body>
