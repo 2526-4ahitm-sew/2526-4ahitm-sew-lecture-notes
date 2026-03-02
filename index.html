@@ -565,7 +565,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Thomas Stütz</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2026-02-23</span>
+<span id="revdate">2026-03-02</span>
 <br><span id="revremark">Lecture Notes for Courses at HTL Leonding</span>
 </div>
 <div id="toc" class="toc2">
@@ -629,6 +629,14 @@ pre.rouge .gs {
 </ul>
 </li>
 <li><a href="#_2026_02_23">11. 2026-02-23</a></li>
+<li><a href="#_2026_03_02">12. 2026-03-02</a>
+<ul class="sectlevel2">
+<li><a href="#_aufbau_eines_http_requests_anfrage">12.1. Aufbau eines http-requests (Anfrage)</a></li>
+<li><a href="#_aufbau_der_http_response_antwort">12.2. Aufbau der HTTP-Response (Antwort)</a></li>
+<li><a href="#_websockets_2">12.3. WebSockets</a></li>
+<li><a href="#_1_sockets_network_sockets">12.4. 1. Sockets (Network Sockets)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1783,6 +1791,9 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 <li>
 <p>intellij-client</p>
 </li>
+<li>
+<p>cli-Tools (zB curl, httpie, httpyac, &#8230;&#8203;)</p>
+</li>
 </ul>
 </div>
 </li>
@@ -1790,11 +1801,263 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2026_03_02"><a class="anchor" href="#_2026_03_02"></a>12. 2026-03-02</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_aufbau_eines_http_requests_anfrage"><a class="anchor" href="#_aufbau_eines_http_requests_anfrage"></a>12.1. Aufbau eines http-requests (Anfrage)</h3>
+<div class="paragraph">
+<p>Ein Client (zB Browser) sendet einen Request an den Server.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Startzeile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enthält Methode, Pfad und Version (z.B. <code>GET /index.html HTTP/1.1</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Header</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metadaten wie <code>Host</code>, <code>User-Agent</code> oder <code>Accept</code>. key-value Paare, die Informationen über die Anfrage liefern.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Leerzeile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trennt Header vom Body.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Body</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enthält Daten (optional, primär bei POST/PUT).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Beispiel eines POST-Requests</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="http"><span class="nf">POST</span> <span class="nn">/api/login</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.beispiel.de</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">34</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aufbau_der_http_response_antwort"><a class="anchor" href="#_aufbau_der_http_response_antwort"></a>12.2. Aufbau der HTTP-Response (Antwort)</h3>
+<div class="paragraph">
+<p>Der Server antwortet auf den Request mit dem Ergebnis der Verarbeitung.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statuszeile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enthält Version, Statuscode und Nachricht (z.B. <code>HTTP/1.1 200 OK</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Header</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Infos vom Server (z.B. <code>Content-Type</code>, <code>Server</code>, <code>Set-Cookie</code>). key-value Paare, die Metadaten über die Antwort liefern.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Leerzeile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trennt Header vom Body.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Body</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Die eigentlichen Daten (HTML, JSON, Bild).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Beispiel einer erfolgreichen Antwort</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="p">:</span> <span class="s">Mon, 02 Mar 2026 10:30:00 GMT</span>
+<span class="na">Server</span><span class="p">:</span> <span class="s">Apache/2.4.41</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">text/html</span>
+
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Willkommen!<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_websockets_2"><a class="anchor" href="#_websockets_2"></a>12.3. WebSockets</h3>
+<div class="paragraph">
+<p>WebSockets wurden entwickelt, um die Einschränkungen des klassischen HTTP-Protokolls zu überwinden und echte Interaktivität im Browser zu ermöglichen.</p>
+</div>
+<div class="sect3">
+<h4 id="_das_kernproblem_die_http_einbahnstraße"><a class="anchor" href="#_das_kernproblem_die_http_einbahnstraße"></a>12.3.1. Das Kernproblem: Die HTTP-Einbahnstraße</h4>
+<div class="paragraph">
+<p>Traditionelles HTTP folgt einem strikten <strong>Request-Response-Modell</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Zustandslosigkeit:</strong> Jede Anfrage steht für sich allein.</p>
+</li>
+<li>
+<p><strong>Client-getrieben:</strong> Der Server darf nicht von sich aus sprechen. Er muss warten, bis der Browser fragt: "Gibt es etwas Neues?"</p>
+</li>
+<li>
+<p><strong>Overhead:</strong> Für jede kleine Nachricht (z. B. ein "Hi" im Chat) müssen HTTP-Header mitgeschickt werden, was Bandbreite und Zeit kostet.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_die_lösung_durch_websockets"><a class="anchor" href="#_die_lösung_durch_websockets"></a>12.3.2. Die Lösung durch WebSockets</h4>
+<div class="paragraph">
+<p>Ein WebSocket ermöglicht eine <strong>Full-Duplex-Verbindung</strong>. Nach einem initialen Handshake bleibt die Verbindung offen.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Server-Push:</strong> Der Server sendet Daten sofort, wenn sie entstehen.</p>
+</li>
+<li>
+<p><strong>Geringe Latenz:</strong> Kein ständiger Verbindungsaufbau nötig.</p>
+</li>
+<li>
+<p><strong>Effizienz:</strong> Die Header-Daten sind nach dem Handshake minimal.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_unterschied_websocket_vs_socket"><a class="anchor" href="#_unterschied_websocket_vs_socket"></a>12.3.3. Unterschied: WebSocket vs. Socket</h4>
+<div class="paragraph">
+<p>Obwohl die Namen ähnlich sind, arbeiten sie auf unterschiedlichen Abstraktionsebenen des Netzwerks.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Merkmal</th>
+<th class="tableblock halign-left valign-top">Klassischer Socket (TCP)</th>
+<th class="tableblock halign-left valign-top">WebSocket</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OSI-Schicht</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schicht 4 (Transport)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schicht 7 (Anwendung)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Protokoll</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pures TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Basiert initial auf HTTP (Upgrade)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Einsatzort</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Systemprogrammierung (C++, Java, Go)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Webbrowser und Webserver</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Firewalls</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oft blockiert (außer Standardports)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Passiert Port 80/443 problemlos. Firewalls erkennen es als normalen HTTP-Verkehr.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Abstraktion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Roh" (Byte-Streams)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nachrichtenbasiert (Frames)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_sockets_network_sockets"><a class="anchor" href="#_1_sockets_network_sockets"></a>12.4. 1. Sockets (Network Sockets)</h3>
+<div class="paragraph">
+<p>Ein Socket ist der fundamentale Endpunkt einer Netzwerkverbindung im Betriebssystem.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Programmierer müssen bei Sockets oft selbst definieren, wo eine Nachricht anfängt und wo sie aufhört (Framing).
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_websockets_3"><a class="anchor" href="#_websockets_3"></a>12.4.1. WebSockets</h4>
+<div class="paragraph">
+<p>WebSockets sind ein <strong>Protokoll</strong>, das auf Sockets aufbaut. Da Browser aus Sicherheitsgründen keinen direkten Zugriff auf rohe TCP-Sockets erlauben, fungiert der WebSocket als "sicherer Proxy" für Web-Anwendungen.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_typische_anwendungsfälle"><a class="anchor" href="#_typische_anwendungsfälle"></a>12.4.2. Typische Anwendungsfälle</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Finanz-Apps:</strong> Live-Aktienkurse ohne Verzögerung.</p>
+</li>
+<li>
+<p><strong>Collaboration Tools:</strong> Wenn mehrere Personen gleichzeitig an einem Dokument arbeiten.</p>
+</li>
+<li>
+<p><strong>Gaming:</strong> Multiplayer-Browser-Spiele mit schnellen Reaktionszeiten.</p>
+</li>
+<li>
+<p><strong>Messenger:</strong> Sofortige Zustellung von Chat-Nachrichten.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Datenaustausch <strong>im Web</strong> benötigst. Nutze Sockets, wenn du außerhalb des Browsers maximale Kontrolle über den Netzwerkverkehr brauchst.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-02-23 10:09:09 UTC
+Last updated 2026-03-02 09:41:23 UTC
 </div>
 </div>
 </body>
