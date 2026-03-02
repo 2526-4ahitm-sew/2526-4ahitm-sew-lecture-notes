@@ -671,7 +671,69 @@ WebSockets sind ein **Protokoll**, das auf Sockets aufbaut. Da Browser aus Siche
 TIP: Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Datenaustausch *im Web* benötigst. Nutze Sockets, wenn du außerhalb des Browsers maximale Kontrolle über den Netzwerkverkehr brauchst.
 
 
+=== Exkurs: GraphQL vs. REST Response-Handling in Quarkus
 
+In Quarkus (SmallRye GraphQL) ist es ein fundamentaler Unterschied zu JAX-RS (REST), wie Antworten an den Client gesendet werden.
+
+== Die kurze Antwort
+In GraphQL ist es absolut **unüblich**, ein generisches `Response`-Objekt (wie `javax.ws.rs.core.Response`) zurückzugeben.
+
+Während du in REST Header, Statuscodes und Body manuell verpackst, übernimmt bei GraphQL das Framework die Kapselung der Daten.
+
+== Warum kein Response-Objekt?
+
+=== 1. Der HTTP-Statuscode ist (fast) immer 200
+Im Gegensatz zu REST landen alle GraphQL-Anfragen per POST auf einem einzigen Endpunkt (meist `/graphql`).
+* Selbst bei fachlichen Fehlern antwortet der Server technisch mit einem *HTTP 200 OK*.
+* Fehlerinformationen werden im `errors`-Feld des JSON-Bodys transportiert, nicht über den HTTP-Header.
+
+=== 2. Automatische Kapselung durch SmallRye
+Wenn du ein POJO oder eine Entity zurückgibst, baut das Framework automatisch das standardisierte GraphQL-Antwortformat:
+
+[source,json]
+----
+{
+  "data": {
+    "user": { "id": "1", "name": "Max" }
+  },
+  "errors": []
+}
+----
+
+=== 3. Fehlerbehandlung via Exceptions
+Statt `Response.status(404).build()` zu nutzen, wirfst du in GraphQL einfach eine Exception. Diese wird automatisch in das `errors`-Array übersetzt.
+
+== Vergleich: REST vs. GraphQL
+
+[cols="1,2,2", options="header"]
+|===
+| Feature | REST (JAX-RS) | GraphQL (SmallRye)
+| **Rückgabetyp** | `Response` oder `Entity` | Direktes **Daten-Objekt** (POJO/Entity)
+| **Statuscodes** | 200, 201, 400, 404, 500 etc. | Fast immer **200 OK**
+| **Fehler-Handling** | `Response-Builder` | **Exceptions** (werden zu `errors`)
+|===
+
+== Code-Beispiel (Quarkus GraphQL)
+
+So implementierst du einen sauberen Endpoint ohne manuelles Response-Objekt:
+
+[source,java]
+----
+@Query
+public User getUser(Long id) {
+    User user = repository.findById(id);
+    if (user == null) {
+        // Diese Exception wird vom Framework in einen GraphQL-Error gewandelt
+        throw new GraphQLException("User mit ID " + id + " nicht gefunden");
+    }
+    return user; // Das Framework kümmert sich um das JSON-Gerüst
+}
+----
+
+[IMPORTANT]
+====
+Das `Response`-Objekt gehört zur JAX-RS Spezifikation. In der MicroProfile GraphQL Spezifikation arbeitest du stattdessen mit echten Typen, was deine API typsicherer und einfacher testbar macht.
+====
 
 
 
