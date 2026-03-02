@@ -675,19 +675,19 @@ TIP: Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen 
 
 In Quarkus (SmallRye GraphQL) ist es ein fundamentaler Unterschied zu JAX-RS (REST), wie Antworten an den Client gesendet werden.
 
-== Die kurze Antwort
+==== Die kurze Antwort
 In GraphQL ist es absolut **unüblich**, ein generisches `Response`-Objekt (wie `javax.ws.rs.core.Response`) zurückzugeben.
 
 Während du in REST Header, Statuscodes und Body manuell verpackst, übernimmt bei GraphQL das Framework die Kapselung der Daten.
 
-== Warum kein Response-Objekt?
+==== Warum kein Response-Objekt?
 
-=== 1. Der HTTP-Statuscode ist (fast) immer 200
+===== 1. Der HTTP-Statuscode ist (fast) immer 200
 Im Gegensatz zu REST landen alle GraphQL-Anfragen per POST auf einem einzigen Endpunkt (meist `/graphql`).
 * Selbst bei fachlichen Fehlern antwortet der Server technisch mit einem *HTTP 200 OK*.
 * Fehlerinformationen werden im `errors`-Feld des JSON-Bodys transportiert, nicht über den HTTP-Header.
 
-=== 2. Automatische Kapselung durch SmallRye
+===== 2. Automatische Kapselung durch SmallRye
 Wenn du ein POJO oder eine Entity zurückgibst, baut das Framework automatisch das standardisierte GraphQL-Antwortformat:
 
 [source,json]
@@ -700,10 +700,10 @@ Wenn du ein POJO oder eine Entity zurückgibst, baut das Framework automatisch d
 }
 ----
 
-=== 3. Fehlerbehandlung via Exceptions
+===== 3. Fehlerbehandlung via Exceptions
 Statt `Response.status(404).build()` zu nutzen, wirfst du in GraphQL einfach eine Exception. Diese wird automatisch in das `errors`-Array übersetzt.
 
-== Vergleich: REST vs. GraphQL
+==== Vergleich: REST vs. GraphQL
 
 [cols="1,2,2", options="header"]
 |===
@@ -713,7 +713,7 @@ Statt `Response.status(404).build()` zu nutzen, wirfst du in GraphQL einfach ein
 | **Fehler-Handling** | `Response-Builder` | **Exceptions** (werden zu `errors`)
 |===
 
-== Code-Beispiel (Quarkus GraphQL)
+===== Code-Beispiel (Quarkus GraphQL)
 
 So implementierst du einen sauberen Endpoint ohne manuelles Response-Objekt:
 
