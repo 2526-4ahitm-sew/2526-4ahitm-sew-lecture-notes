@@ -554,6 +554,122 @@ public class VehicleGraphQlApi {
 
 ** Debug-page
 ** intellij-client
+** cli-Tools (zB curl, httpie, httpyac, ...)
+
+== 2026-03-02
+
+=== Aufbau eines http-requests (Anfrage)
+
+Ein Client (zB Browser) sendet einen Request an den Server.
+
+[cols="1,3", options="header"]
+|===
+| Komponente | Beschreibung
+| **Startzeile** | Enthält Methode, Pfad und Version (z.B. `GET /index.html HTTP/1.1`).
+| **Header** | Metadaten wie `Host`, `User-Agent` oder `Accept`. key-value Paare, die Informationen über die Anfrage liefern.
+| **Leerzeile** | Trennt Header vom Body.
+| **Body** | Enthält Daten (optional, primär bei POST/PUT).
+|===
+
+.Beispiel eines POST-Requests
+[source,http]
+----
+POST /api/login HTTP/1.1
+Host: www.beispiel.de
+Content-Type: application/json
+Content-Length: 34
+
+{
+  "user": "admin",
+  "pass": "1234"
+}
+----
+
+
+
+=== Aufbau der HTTP-Response (Antwort)
+
+Der Server antwortet auf den Request mit dem Ergebnis der Verarbeitung.
+
+[cols="1,3", options="header"]
+|===
+| Komponente | Beschreibung
+| **Statuszeile** | Enthält Version, Statuscode und Nachricht (z.B. `HTTP/1.1 200 OK`).
+| **Header** | Infos vom Server (z.B. `Content-Type`, `Server`, `Set-Cookie`). key-value Paare, die Metadaten über die Antwort liefern.
+| **Leerzeile** | Trennt Header vom Body.
+| **Body** | Die eigentlichen Daten (HTML, JSON, Bild).
+|===
+
+.Beispiel einer erfolgreichen Antwort
+[source,http]
+----
+HTTP/1.1 200 OK
+Date: Mon, 02 Mar 2026 10:30:00 GMT
+Server: Apache/2.4.41
+Content-Type: text/html
+
+<html>
+  <body>
+    <h1>Willkommen!</h1>
+  </body>
+</html>
+----
+
+=== WebSockets
+
+WebSockets wurden entwickelt, um die Einschränkungen des klassischen HTTP-Protokolls zu überwinden und echte Interaktivität im Browser zu ermöglichen.
+
+==== Das Kernproblem: Die HTTP-Einbahnstraße
+
+Traditionelles HTTP folgt einem strikten **Request-Response-Modell**.
+
+* **Zustandslosigkeit:** Jede Anfrage steht für sich allein.
+* **Client-getrieben:** Der Server darf nicht von sich aus sprechen. Er muss warten, bis der Browser fragt: "Gibt es etwas Neues?"
+* **Overhead:** Für jede kleine Nachricht (z. B. ein "Hi" im Chat) müssen HTTP-Header mitgeschickt werden, was Bandbreite und Zeit kostet.
+
+==== Die Lösung durch WebSockets
+Ein WebSocket ermöglicht eine **Full-Duplex-Verbindung**. Nach einem initialen Handshake bleibt die Verbindung offen.
+
+* **Server-Push:** Der Server sendet Daten sofort, wenn sie entstehen.
+* **Geringe Latenz:** Kein ständiger Verbindungsaufbau nötig.
+* **Effizienz:** Die Header-Daten sind nach dem Handshake minimal.
+
+
+==== Unterschied: WebSocket vs. Socket
+
+Obwohl die Namen ähnlich sind, arbeiten sie auf unterschiedlichen Abstraktionsebenen des Netzwerks.
+
+[cols="1,2,2", options="header"]
+|===
+| Merkmal | Klassischer Socket (TCP) | WebSocket
+| **OSI-Schicht** | Schicht 4 (Transport) | Schicht 7 (Anwendung)
+| **Protokoll** | Pures TCP | Basiert initial auf HTTP (Upgrade)
+| **Einsatzort** | Systemprogrammierung (C++, Java, Go) | Webbrowser und Webserver
+| **Firewalls** | Oft blockiert (außer Standardports) | Passiert Port 80/443 problemlos. Firewalls erkennen es als normalen HTTP-Verkehr.
+| **Abstraktion** | "Roh" (Byte-Streams) | Nachrichtenbasiert (Frames)
+|===
+
+=== 1. Sockets (Network Sockets)
+Ein Socket ist der fundamentale Endpunkt einer Netzwerkverbindung im Betriebssystem.
+[NOTE]
+Programmierer müssen bei Sockets oft selbst definieren, wo eine Nachricht anfängt und wo sie aufhört (Framing).
+
+==== WebSockets
+WebSockets sind ein **Protokoll**, das auf Sockets aufbaut. Da Browser aus Sicherheitsgründen keinen direkten Zugriff auf rohe TCP-Sockets erlauben, fungiert der WebSocket als "sicherer Proxy" für Web-Anwendungen.
+
+
+
+==== Typische Anwendungsfälle
+
+* **Finanz-Apps:** Live-Aktienkurse ohne Verzögerung.
+* **Collaboration Tools:** Wenn mehrere Personen gleichzeitig an einem Dokument arbeiten.
+* **Gaming:** Multiplayer-Browser-Spiele mit schnellen Reaktionszeiten.
+* **Messenger:** Sofortige Zustellung von Chat-Nachrichten.
+
+
+
+TIP: Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Datenaustausch *im Web* benötigst. Nutze Sockets, wenn du außerhalb des Browsers maximale Kontrolle über den Netzwerkverkehr brauchst.
+
 
 
 
