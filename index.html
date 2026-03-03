@@ -565,7 +565,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Thomas Stütz</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2026-03-02</span>
+<span id="revdate">2026-03-03</span>
 <br><span id="revremark">Lecture Notes for Courses at HTL Leonding</span>
 </div>
 <div id="toc" class="toc2">
@@ -631,11 +631,12 @@ pre.rouge .gs {
 <li><a href="#_2026_02_23">11. 2026-02-23</a></li>
 <li><a href="#_2026_03_02">12. 2026-03-02</a>
 <ul class="sectlevel2">
-<li><a href="#_aufbau_eines_http_requests_anfrage">12.1. Aufbau eines http-requests (Anfrage)</a></li>
-<li><a href="#_aufbau_der_http_response_antwort">12.2. Aufbau der HTTP-Response (Antwort)</a></li>
-<li><a href="#_websockets_2">12.3. WebSockets</a></li>
-<li><a href="#_1_sockets_network_sockets">12.4. 1. Sockets (Network Sockets)</a></li>
-<li><a href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus">12.5. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</a></li>
+<li><a href="#_welche_parameter_typen_gibt_es_bei_http_s_sperrer">12.1. Welche Parameter-typen gibt es bei http? (S. Sperrer)</a></li>
+<li><a href="#_aufbau_eines_http_requests_anfrage">12.2. Aufbau eines http-requests (Anfrage)</a></li>
+<li><a href="#_aufbau_der_http_response_antwort">12.3. Aufbau der HTTP-Response (Antwort)</a></li>
+<li><a href="#_websockets_2">12.4. WebSockets</a></li>
+<li><a href="#_1_sockets_network_sockets">12.5. 1. Sockets (Network Sockets)</a></li>
+<li><a href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus">12.6. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</a></li>
 </ul>
 </li>
 </ul>
@@ -648,6 +649,9 @@ pre.rouge .gs {
 <p><span class="icon"><a class="image" href="https://github.com/2526-4ahitm-sew/2526-4ahitm-sew-lecture-notes/main/asciidocs/index.adoc"><i class="fa fa-file-text-o"></i></a></span> ‏ ‏ ‎
 <span class="icon"><a class="image" href="https://github.com/2526-4ahitm-sew/2526-4ahitm-sew-lecture-notes"><i class="fa fa-github-square"></i></a></span> ‏ ‏ ‎
 <span class="icon"><a class="image" href="http://edufs.edu.htl-leonding.ac.at/~t.stuetz/hugo/2021/01/lecture-notes/"><i class="fa fa-home"></i></a></span></p>
+</div>
+<div class="paragraph">
+<p><a href="notes/SEW_2026-03-02_SimoneSperrer.pdf">Mitschrift vom 02.03.2026 (Simone)</a></p>
 </div>
 </div>
 </div>
@@ -1806,7 +1810,75 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 <h2 id="_2026_03_02"><a class="anchor" href="#_2026_03_02"></a>12. 2026-03-02</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_aufbau_eines_http_requests_anfrage"><a class="anchor" href="#_aufbau_eines_http_requests_anfrage"></a>12.1. Aufbau eines http-requests (Anfrage)</h3>
+<h3 id="_welche_parameter_typen_gibt_es_bei_http_s_sperrer"><a class="anchor" href="#_welche_parameter_typen_gibt_es_bei_http_s_sperrer"></a>12.1. Welche Parameter-typen gibt es bei http? (S. Sperrer)</h3>
+<div class="sect3">
+<h4 id="_pathparam"><a class="anchor" href="#_pathparam"></a>12.1.1. Pathparam</h4>
+<div class="listingblock">
+<div class="title">Beispiel eines GET-Requests mit Pathparam</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="http"><span class="err">https://www.beispiel.de/api/users/123</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hier ist <code>123</code> ein Pathparam, der die ID des Benutzers angibt, den wir abrufen möchten.w</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_queryparam"><a class="anchor" href="#_queryparam"></a>12.1.2. Queryparam</h4>
+<div class="listingblock">
+<div class="title">Beispiel eines GET-Requests mit Queryparam</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="http"><span class="err">https://www.beispiel.de/api/users?name=Max&amp;age=30</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hier sind <code>name=Max</code> und <code>age=30</code> Queryparameter,
+die zusätzliche Informationen über die Anfrage liefern (z. B. Filterkriterien).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bodyparam"><a class="anchor" href="#_bodyparam"></a>12.1.3. Bodyparam</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Werden im Body der http-Anfrage gesendet</p>
+</li>
+<li>
+<p>Hauptsächlich bei POST- oder PUT-Requests</p>
+</li>
+<li>
+<p>Meistens im JSON-Format</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Beispiel eines POST-Requests mit Bodyparam</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max Muster"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max@muster.com"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_headerparam"><a class="anchor" href="#_headerparam"></a>12.1.4. Headerparam</h4>
+<div class="paragraph">
+<p>Der Header enthält Metadaten über die Anfrage selbst.</p>
+</div>
+<div class="paragraph">
+<p>z.B. Authentifizierungstoken</p>
+</div>
+<div class="listingblock">
+<div class="title">Beispiel:</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="http"><span class="err">Content-Type: application/json</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aufbau_eines_http_requests_anfrage"><a class="anchor" href="#_aufbau_eines_http_requests_anfrage"></a>12.2. Aufbau eines http-requests (Anfrage)</h3>
 <div class="paragraph">
 <p>Ein Client (zB Browser) sendet einen Request an den Server.</p>
 </div>
@@ -1856,7 +1928,7 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_aufbau_der_http_response_antwort"><a class="anchor" href="#_aufbau_der_http_response_antwort"></a>12.2. Aufbau der HTTP-Response (Antwort)</h3>
+<h3 id="_aufbau_der_http_response_antwort"><a class="anchor" href="#_aufbau_der_http_response_antwort"></a>12.3. Aufbau der HTTP-Response (Antwort)</h3>
 <div class="paragraph">
 <p>Der Server antwortet auf den Request mit dem Ergebnis der Verarbeitung.</p>
 </div>
@@ -1907,12 +1979,12 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_websockets_2"><a class="anchor" href="#_websockets_2"></a>12.3. WebSockets</h3>
+<h3 id="_websockets_2"><a class="anchor" href="#_websockets_2"></a>12.4. WebSockets</h3>
 <div class="paragraph">
 <p>WebSockets wurden entwickelt, um die Einschränkungen des klassischen HTTP-Protokolls zu überwinden und echte Interaktivität im Browser zu ermöglichen.</p>
 </div>
 <div class="sect3">
-<h4 id="_das_kernproblem_die_http_einbahnstraße"><a class="anchor" href="#_das_kernproblem_die_http_einbahnstraße"></a>12.3.1. Das Kernproblem: Die HTTP-Einbahnstraße</h4>
+<h4 id="_das_kernproblem_die_http_einbahnstraße"><a class="anchor" href="#_das_kernproblem_die_http_einbahnstraße"></a>12.4.1. Das Kernproblem: Die HTTP-Einbahnstraße</h4>
 <div class="paragraph">
 <p>Traditionelles HTTP folgt einem strikten <strong>Request-Response-Modell</strong>.</p>
 </div>
@@ -1931,7 +2003,7 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_die_lösung_durch_websockets"><a class="anchor" href="#_die_lösung_durch_websockets"></a>12.3.2. Die Lösung durch WebSockets</h4>
+<h4 id="_die_lösung_durch_websockets"><a class="anchor" href="#_die_lösung_durch_websockets"></a>12.4.2. Die Lösung durch WebSockets</h4>
 <div class="paragraph">
 <p>Ein WebSocket ermöglicht eine <strong>Full-Duplex-Verbindung</strong>. Nach einem initialen Handshake bleibt die Verbindung offen.</p>
 </div>
@@ -1950,7 +2022,7 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_unterschied_websocket_vs_socket"><a class="anchor" href="#_unterschied_websocket_vs_socket"></a>12.3.3. Unterschied: WebSocket vs. Socket</h4>
+<h4 id="_unterschied_websocket_vs_socket"><a class="anchor" href="#_unterschied_websocket_vs_socket"></a>12.4.3. Unterschied: WebSocket vs. Socket</h4>
 <div class="paragraph">
 <p>Obwohl die Namen ähnlich sind, arbeiten sie auf unterschiedlichen Abstraktionsebenen des Netzwerks.</p>
 </div>
@@ -1998,7 +2070,7 @@ Ergebnis prüfen: Erwartetes Resultat mit tatsächlichem vergleichen</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_1_sockets_network_sockets"><a class="anchor" href="#_1_sockets_network_sockets"></a>12.4. 1. Sockets (Network Sockets)</h3>
+<h3 id="_1_sockets_network_sockets"><a class="anchor" href="#_1_sockets_network_sockets"></a>12.5. 1. Sockets (Network Sockets)</h3>
 <div class="paragraph">
 <p>Ein Socket ist der fundamentale Endpunkt einer Netzwerkverbindung im Betriebssystem.</p>
 </div>
@@ -2015,13 +2087,13 @@ Programmierer müssen bei Sockets oft selbst definieren, wo eine Nachricht anfä
 </table>
 </div>
 <div class="sect3">
-<h4 id="_websockets_3"><a class="anchor" href="#_websockets_3"></a>12.4.1. WebSockets</h4>
+<h4 id="_websockets_3"><a class="anchor" href="#_websockets_3"></a>12.5.1. WebSockets</h4>
 <div class="paragraph">
 <p>WebSockets sind ein <strong>Protokoll</strong>, das auf Sockets aufbaut. Da Browser aus Sicherheitsgründen keinen direkten Zugriff auf rohe TCP-Sockets erlauben, fungiert der WebSocket als "sicherer Proxy" für Web-Anwendungen.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_typische_anwendungsfälle"><a class="anchor" href="#_typische_anwendungsfälle"></a>12.4.2. Typische Anwendungsfälle</h4>
+<h4 id="_typische_anwendungsfälle"><a class="anchor" href="#_typische_anwendungsfälle"></a>12.5.2. Typische Anwendungsfälle</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2053,12 +2125,12 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exkurs_graphql_vs_rest_response_handling_in_quarkus"><a class="anchor" href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus"></a>12.5. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</h3>
+<h3 id="_exkurs_graphql_vs_rest_response_handling_in_quarkus"><a class="anchor" href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus"></a>12.6. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</h3>
 <div class="paragraph">
 <p>In Quarkus (SmallRye GraphQL) ist es ein fundamentaler Unterschied zu JAX-RS (REST), wie Antworten an den Client gesendet werden.</p>
 </div>
 <div class="sect3">
-<h4 id="_die_kurze_antwort"><a class="anchor" href="#_die_kurze_antwort"></a>12.5.1. Die kurze Antwort</h4>
+<h4 id="_die_kurze_antwort"><a class="anchor" href="#_die_kurze_antwort"></a>12.6.1. Die kurze Antwort</h4>
 <div class="paragraph">
 <p>In GraphQL ist es absolut <strong>unüblich</strong>, ein generisches <code>Response</code>-Objekt (wie <code>javax.ws.rs.core.Response</code>) zurückzugeben.</p>
 </div>
@@ -2067,7 +2139,7 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 <div class="sect3">
-<h4 id="_warum_kein_response_objekt"><a class="anchor" href="#_warum_kein_response_objekt"></a>12.5.2. Warum kein Response-Objekt?</h4>
+<h4 id="_warum_kein_response_objekt"><a class="anchor" href="#_warum_kein_response_objekt"></a>12.6.2. Warum kein Response-Objekt?</h4>
 <div class="sect4">
 <h5 id="_1_der_http_statuscode_ist_fast_immer_200"><a class="anchor" href="#_1_der_http_statuscode_ist_fast_immer_200"></a>1. Der HTTP-Statuscode ist (fast) immer 200</h5>
 <div class="paragraph">
@@ -2100,7 +2172,7 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vergleich_rest_vs_graphql"><a class="anchor" href="#_vergleich_rest_vs_graphql"></a>12.5.3. Vergleich: REST vs. GraphQL</h4>
+<h4 id="_vergleich_rest_vs_graphql"><a class="anchor" href="#_vergleich_rest_vs_graphql"></a>12.6.3. Vergleich: REST vs. GraphQL</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -2173,7 +2245,7 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-03-02 11:03:01 UTC
+Last updated 2026-03-03 13:09:45 UTC
 </div>
 </div>
 </body>
