@@ -15,6 +15,9 @@ icon:github-square[link=https://github.com/2526-4ahitm-sew/2526-4ahitm-sew-lectu
 icon:home[link=http://edufs.edu.htl-leonding.ac.at/~t.stuetz/hugo/2021/01/lecture-notes/]
 endif::backend-html5[]
 
+
+link:notes/SEW_2026-03-02_SimoneSperrer.pdf[Mitschrift vom 02.03.2026 (Simone)]
+
 == Testtermine
 
 * 24. November 2025
@@ -557,6 +560,53 @@ public class VehicleGraphQlApi {
 ** cli-Tools (zB curl, httpie, httpyac, ...)
 
 == 2026-03-02
+
+=== Welche Parameter-typen gibt es bei http? (S. Sperrer)
+==== Pathparam
+
+.Beispiel eines GET-Requests mit Pathparam
+[source,http]
+----
+https://www.beispiel.de/api/users/123
+----
+Hier ist `123` ein Pathparam, der die ID des Benutzers angibt, den wir abrufen möchten.w
+
+==== Queryparam
+.Beispiel eines GET-Requests mit Queryparam
+[source,http]
+----
+https://www.beispiel.de/api/users?name=Max&age=30
+----
+Hier sind `name=Max` und `age=30` Queryparameter,
+die zusätzliche Informationen über die Anfrage liefern (z. B. Filterkriterien).
+
+==== Bodyparam
+* Werden im Body der http-Anfrage gesendet
+* Hauptsächlich bei POST- oder PUT-Requests
+* Meistens im JSON-Format
+
+.Beispiel eines POST-Requests mit Bodyparam
+[source,json]
+----
+{
+"name": "Max Muster",
+"email": "max@muster.com"
+}
+----
+
+==== Headerparam
+Der Header enthält Metadaten über die Anfrage selbst.
+
+z.B. Authentifizierungstoken
+
+.Beispiel:
+[source,http]
+----
+Content-Type: application/json
+----
+
+
+
 
 === Aufbau eines http-requests (Anfrage)
 
