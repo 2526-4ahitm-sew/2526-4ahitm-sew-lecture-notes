@@ -565,7 +565,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Thomas Stütz</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2026-03-03</span>
+<span id="revdate">2026-04-13</span>
 <br><span id="revremark">Lecture Notes for Courses at HTL Leonding</span>
 </div>
 <div id="toc" class="toc2">
@@ -637,6 +637,12 @@ pre.rouge .gs {
 <li><a href="#_websockets_2">12.4. WebSockets</a></li>
 <li><a href="#_1_sockets_network_sockets">12.5. 1. Sockets (Network Sockets)</a></li>
 <li><a href="#_exkurs_graphql_vs_rest_response_handling_in_quarkus">12.6. Exkurs: GraphQL vs. REST Response-Handling in Quarkus</a></li>
+</ul>
+</li>
+<li><a href="#_2026_04_13_s_sperrer">13. 2026-04-13 (S. Sperrer)</a>
+<ul class="sectlevel2">
+<li><a href="#_web_sockets">13.1. Web Sockets</a></li>
+<li><a href="#_moa_message_oriented_architecture">13.2. MOA - Message-Oriented Architecture</a></li>
 </ul>
 </li>
 </ul>
@@ -2241,11 +2247,183 @@ Wähle WebSockets, wenn du eine dauerhafte Verbindung für bidirektionalen Daten
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2026_04_13_s_sperrer"><a class="anchor" href="#_2026_04_13_s_sperrer"></a>13. 2026-04-13 (S. Sperrer)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_web_sockets"><a class="anchor" href="#_web_sockets"></a>13.1. Web Sockets</h3>
+<div class="paragraph">
+<p>Neu: Web Sockets Next (in Quarkus)</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://quarkus.io/guides/images/websockets-next-architecture.png" alt="websockets next architecture" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://quarkus.io/guides/websockets-next-tutorial" class="bare">https://quarkus.io/guides/websockets-next-tutorial</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mehrere Endgeräte bzw. Clients können gleichzeitig mit einem Server verbunden sein.</p>
+</li>
+<li>
+<p>Verbindungen sind Bidirektional, d.h. sowohl Server als auch Client können jederzeit Nachrichten senden.</p>
+</li>
+<li>
+<p>Der Server kann von sich aus mit dem Client kommunizieren, ohne dass dieser eine Anfrage stellen muss.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Bei SSE (Server-Sent Events) handelt es sich um eine unidirektionale Kommunikation,
+bei der der Server Daten an den Client sendet, aber der Client nicht direkt auf diese Daten antworten kann.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_moa_message_oriented_architecture"><a class="anchor" href="#_moa_message_oriented_architecture"></a>13.2. MOA - Message-Oriented Architecture</h3>
+<div class="sect3">
+<h4 id="_vorteile_der_moa"><a class="anchor" href="#_vorteile_der_moa"></a>13.2.1. Vorteile der MOA</h4>
+<div class="paragraph">
+<p><strong>Vorteile:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Entkopplung:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sender und Empfänger müssen sich nicht kennen.</p>
+</li>
+<li>
+<p>Sie wissen nicht, wie der andere funktioniert oder wo er ist.</p>
+</li>
+<li>
+<p>Wichtig ist nur, dass beide verstehen, wie die Nachricht aufgebaut ist.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Asynchronität:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Der Sender schickt die Nachricht ab und kann sofort weiterarbeiten.</p>
+</li>
+<li>
+<p>Er muss nicht warten, bis der Empfänger fertig ist.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Fehlertoleranz:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wenn der Empfänger kurz nicht erreichbar ist, werden die Nachrichten zwischengespeichert.</p>
+</li>
+<li>
+<p>Sobald er wieder online ist, bekommt er die Nachrichten.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_übungsbeispiel"><a class="anchor" href="#_übungsbeispiel"></a>13.2.2. Übungsbeispiel</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Einen Quarkus Client (Server MQTT) mit dynamischen Topics  erstellen.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Topics: <code>(z.B. "home/livingroom/temperature", "home/kitchen/humidity", &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p>Der Client soll Werte abfragen und aktualisieren, wenn neue Werte verfügbar sind.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Wie kommunizieren wir mit dem Quarkus Client?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mit einer Qute-Website</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Auf der Website kann man Antropic eintragen und Werte aktualisieren.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Was ist Qute?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Quarkus Template mit Qute &#8594; PHP für Quarkus</p>
+</li>
+<li>
+<p>Quarkus Qute ist eine schnelle und typsichere Template-Engine.</p>
+</li>
+<li>
+<p>Sie ist gut in Quarkus integriert und funktioniert besonders effizient, auch bei nativen Programmen.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>YouTuber <strong><em>arconsis</em></strong> Videos zu MQTT</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.youtube.com/watch?v=SslVWiX8P2A&amp;list=PLievaKnl8uRQVueMOeBE7KVxNM231hje4" class="bare">https://www.youtube.com/watch?v=SslVWiX8P2A&amp;list=PLievaKnl8uRQVueMOeBE7KVxNM231hje4</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-03-03 13:09:45 UTC
+Last updated 2026-04-13 19:22:08 UTC
 </div>
 </div>
 </body>
