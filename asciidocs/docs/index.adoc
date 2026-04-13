@@ -785,6 +785,67 @@ public User getUser(Long id) {
 Das `Response`-Objekt gehört zur JAX-RS Spezifikation. In der MicroProfile GraphQL Spezifikation arbeitest du stattdessen mit echten Typen, was deine API typsicherer und einfacher testbar macht.
 ====
 
+== 2026-04-13 (S. Sperrer)
+=== Web Sockets
+Neu: Web Sockets Next (in Quarkus)
+
+image::https://quarkus.io/guides/images/websockets-next-architecture.png[width=500,align=center]
+
+https://quarkus.io/guides/websockets-next-tutorial
+
+* Mehrere Endgeräte bzw. Clients können gleichzeitig mit einem Server verbunden sein.
+* Verbindungen sind Bidirektional, d.h. sowohl Server als auch Client können jederzeit Nachrichten senden.
+* Der Server kann von sich aus mit dem Client kommunizieren, ohne dass dieser eine Anfrage stellen muss.
+
+[NOTE]
+====
+Bei SSE (Server-Sent Events) handelt es sich um eine unidirektionale Kommunikation,
+bei der der Server Daten an den Client sendet, aber der Client nicht direkt auf diese Daten antworten kann.
+====
+
+
+=== MOA - Message-Oriented Architecture
+==== Vorteile der MOA
+
+*Vorteile:*
+
+* *Entkopplung:*
+** Sender und Empfänger müssen sich nicht kennen.
+** Sie wissen nicht, wie der andere funktioniert oder wo er ist.
+** Wichtig ist nur, dass beide verstehen, wie die Nachricht aufgebaut ist.
+* *Asynchronität:*
+** Der Sender schickt die Nachricht ab und kann sofort weiterarbeiten.
+** Er muss nicht warten, bis der Empfänger fertig ist.
+* *Fehlertoleranz:*
+** Wenn der Empfänger kurz nicht erreichbar ist, werden die Nachrichten zwischengespeichert.
+** Sobald er wieder online ist, bekommt er die Nachrichten.
+
+
+==== Übungsbeispiel
+
+* Einen Quarkus Client (Server MQTT) mit dynamischen Topics  erstellen.
+** Topics: `(z.B. "home/livingroom/temperature", "home/kitchen/humidity", ...)`
+** Der Client soll Werte abfragen und aktualisieren, wenn neue Werte verfügbar sind.
+
+*Wie kommunizieren wir mit dem Quarkus Client?*
+
+* Mit einer Qute-Website
+** Auf der Website kann man Antropic eintragen und Werte aktualisieren.
+
+*Was ist Qute?*
+
+* Quarkus Template mit Qute -> PHP für Quarkus
+* Quarkus Qute ist eine schnelle und typsichere Template-Engine.
+* Sie ist gut in Quarkus integriert und funktioniert besonders effizient, auch bei nativen Programmen.
+
+
+[NOTE]
+====
+YouTuber *_arconsis_* Videos zu MQTT
+
+https://www.youtube.com/watch?v=SslVWiX8P2A&list=PLievaKnl8uRQVueMOeBE7KVxNM231hje4
+====
+
 
 
 
