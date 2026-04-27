@@ -847,7 +847,145 @@ https://www.youtube.com/watch?v=SslVWiX8P2A&list=PLievaKnl8uRQVueMOeBE7KVxNM231h
 ====
 
 
+== 2026-04-27
 
+=== MQTT (Message Queuing Telemetry Transport)
+
+==== Übersicht
+
+QoS definiert die *Zustellungsgarantie* einer Nachricht zwischen Sender und Empfänger.
+Es gibt drei Stufen: 0, 1 und 2.
+
+
+
+==== QoS 0 – „At most once" (Fire & Forget)
+
+[source]
+----
+Publisher  →  Broker  →  Subscriber
+           (kein ACK)  (kein ACK)
+----
+
+* Nachricht wird **maximal einmal** gesendet
+* **Keine Bestätigung**, keine Wiederholung
+* Nachricht kann **verloren gehen**
+* Schnellste und ressourcenschonendste Variante
+
+[NOTE]
+====
+*Wann verwenden?* Sensordaten, die sich häufig wiederholen (z. B. Temperatur alle 5 Sekunden) –
+ein verlorenes Paket ist kein Problem.
+====
+
+---
+
+==== QoS 1 – „At least once" (Bestätigt)
+
+[source]
+----
+Publisher  →  Broker      →  Subscriber
+           ←  PUBACK      ←  PUBACK
+----
+
+* Nachricht wird **mindestens einmal** zugestellt
+* Broker/Client bestätigen den Empfang mit **PUBACK**
+* Bei ausbleibender Bestätigung → **Wiederholung**
+* Nachricht kann **doppelt ankommen** (Duplicate Delivery)
+
+[NOTE]
+====
+*Wann verwenden?* Wenn keine Nachricht verloren gehen darf, Duplikate aber tolerierbar sind
+(z. B. Alarmmeldungen).
+====
+
+
+
+==== QoS 2 – „Exactly once" (Garantiert, einmalig)
+
+[source]
+----
+Publisher  →  Broker       →  Subscriber
+           ←  PUBREC
+           →  PUBREL
+           ←  PUBCOMP      ←  (intern 4-Wege-Handshake)
+----
+
+* Nachricht wird **genau einmal** zugestellt – garantiert
+* **4-Wege-Handshake** (PUBLISH → PUBREC → PUBREL → PUBCOMP)
+* Langsamste Variante, höchster Overhead
+* Keine Duplikate, kein Verlust
+
+[NOTE]
+====
+*Wann verwenden?* Kritische Aktionen wie Zahlungen, Steuerbefehle, medizinische Daten.
+====
+
+
+
+==== Vergleich auf einen Blick
+
+[cols="1,1,1,1", options="header"]
+|===
+| Eigenschaft        | QoS 0      | QoS 1      | QoS 2
+
+| Zustellung         | 0–1×       | 1–n×       | genau 1×
+| Geschwindigkeit    | ⚡⚡⚡        | ⚡⚡          | ⚡
+| Overhead           | minimal    | mittel     | hoch
+| Datenverlust       | möglich    | nein       | nein
+| Duplikate          | nein       | möglich    | nein
+| Nachrichten gespeichert | nein  | ja         | ja
+|===
+
+
+
+==== QoS in Quarkus konfigurieren
+
+===== application.properties
+
+[source,properties]
+----
+# Empfangen (Subscriber)
+mp.messaging.incoming.sensor-data.qos=1
+
+# Senden (Publisher)
+mp.messaging.outgoing.sensor-data.qos=2
+----
+
+===== QoS pro Nachricht im Code setzen
+
+[source,java]
+----
+@Outgoing("sensor-data")
+public Message<byte[]> sendMessage() {
+    return MqttMessage.of("mein/topic", "payload".getBytes())
+        .withQosLevel(2);  // QoS direkt an der Nachricht
+}
+----
+
+
+
+==== Wichtiger Hinweis: Publisher vs. Subscriber QoS
+
+Das *effektive QoS* ist immer das *Minimum* aus Publisher- und Subscriber-QoS:
+
+[source]
+----
+Publisher QoS 2  +  Subscriber QoS 1  =  effektiv QoS 1
+Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0
+----
+
+Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
+
+
+
+==== Faustregel
+
+[TIP]
+====
+* *QoS 0* → für häufige, unkritische Daten
+* *QoS 1* → für wichtige Ereignisse _(Standardwahl)_
+* *QoS 2* → nur wenn absolut nötig – der Overhead lohnt sich selten
+====
 
 
 
