@@ -1,0 +1,70 @@
+= Functional Specification -- Sensor Demo
+:toc:
+:toc-title: Inhaltsverzeichnis
+:sectnums:
+
+== Zielsetzung
+
+Eine Anwendung, die Sensordaten (CO2 und Temperatur) via MQTT empfängt und in einer PostgreSQL-Datenbank persistiert.
+Zusätzlich stellt die Anwendung eine REST-API bereit, über die gespeicherte Messwerte abgefragt werden können.
+
+== Datenquellen
+
+MQTT-Broker: `vm23.htl-leonding.ac.at` (Standard-Port 1883)
+
+[cols="3,2,1", options="header"]
+|===
+| Topic | Beschreibung | Einheit
+
+| `nili3/sensor/nili3_co2/state`
+| CO2-Konzentration
+| ppm
+
+| `nili3/sensor/nili3_temperature/state`
+| Temperatur
+| °C
+|===
+
+Die Payload ist jeweils ein einzelner numerischer Wert als String (z.B. `427` oder `21.5`).
+
+== Fachliche Anforderungen
+
+=== Empfang und Speicherung
+
+* Die Anwendung verbindet sich beim Start automatisch mit dem MQTT-Broker.
+* Jede eingehende Nachricht auf den konfigurierten Topics wird als Messwert interpretiert und in der Datenbank gespeichert.
+* Pro Messwert werden folgende Daten gespeichert:
+** *Sensor-Name* (abgeleitet aus dem Topic, z.B. `nili3_co2`, `nili3_temperature`)
+** *Wert* (numerisch, Gleitkommazahl)
+** *Einheit* (`ppm` bzw. `°C`)
+** *Zeitstempel* (Zeitpunkt des Empfangs)
+
+=== REST-API
+
+[cols="1,3,4", options="header"]
+|===
+| Methode | Pfad | Beschreibung
+
+| GET
+| `/api/measurements`
+| Alle Messwerte (paginiert, neueste zuerst)
+
+| GET
+| `/api/measurements?sensor=nili3_co2`
+| Messwerte eines bestimmten Sensors
+
+| GET
+| `/api/measurements/latest`
+| Jeweils letzter Messwert pro Sensor
+|===
+
+=== Nicht-funktionale Anforderungen
+
+* Die Anwendung muss bei Verbindungsabbruch zum MQTT-Broker automatisch reconnecten.
+* Ungültige Payloads (nicht numerisch) werden geloggt und verworfen.
+
+== Abgrenzung
+
+* Keine Benutzerverwaltung oder Authentifizierung.
+* Kein Frontend / UI.
+* Keine Alerting- oder Schwellwert-Logik.

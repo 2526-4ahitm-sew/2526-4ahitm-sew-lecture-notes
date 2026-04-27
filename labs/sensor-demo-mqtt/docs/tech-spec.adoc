@@ -1,0 +1,216 @@
+= Technical Specification -- Sensor Demo
+:toc:
+:toc-title: Inhaltsverzeichnis
+:sectnums:
+:source-highlighter: highlight.js
+
+== Technologie-Stack
+
+[cols="2,3,2", options="header"]
+|===
+| Komponente | Technologie | Version
+
+| Framework | Quarkus | 3.34.5
+| Sprache | Java | 25
+| Build-Tool | Maven | 3.9+
+| MQTT-Client | Quarkus SmallRye Reactive Messaging (MQTT) | via Quarkus BOM
+| Persistenz | Quarkus Hibernate ORM with Panache | via Quarkus BOM
+| Datenbank | PostgreSQL | 18 (Alpine)
+| DB-Migration | Flyway | via Quarkus BOM
+| REST | Quarkus RESTEasy Reactive (Jackson) | via Quarkus BOM
+| Dev-DB | Quarkus Dev Services (Testcontainers/PostgreSQL) | automatisch
+|===
+
+== Projektstruktur
+
+[source]
+----
+sensor-demo/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/at/htl/sensor/
+│   │   │   │   ├── entity/
+│   │   │   │   │   └── Measurement.java
+│   │   │   │   ├── boundary/
+│   │   │   │   │   └── MeasurementResource.java
+│   │   │   │   ├── control/
+│   │   │   │   │   └── MeasurementRepository.java
+│   │   │   │   └── mqtt/
+│   │   │   │       └── SensorMessageConsumer.java
+│   │   │   └── resources/
+│   │   │       ├── application.properties
+│   │   │       └── db/migration/
+│   │   │           └── V1.0.0__create_measurement.sql
+│   │   └── test/
+│   │       └── java/at/htl/sensor/
+│   │           └── MeasurementResourceTest.java
+│   └── pom.xml
+├── deployment/
+│   └── docker/
+│       └── docker-compose.yml
+└── docs/
+    ├── story.md
+    ├── fsd.adoc
+    └── tech-spec.adoc
+----
+
+== Datenmodell
+
+=== Entity: `Measurement`
+
+[cols="2,2,3,4", options="header"]
+|===
+| Feld | Typ | DB-Spalte | Beschreibung
+
+| id | Long | `id` (PK, generated) | Primärschlüssel
+| sensor | String | `sensor` (not null) | z.B. `nili3_co2`
+| value | Double | `value` (not null) | Messwert
+| unit | String | `unit` (not null) | `ppm` oder `°C`
+| timestamp | LocalDateTime | `timestamp` (not null) | Empfangszeitpunkt
+|===
+
+=== Flyway-Migration `V1.0.0__create_measurement.sql`
+
+[source,sql]
+----
+create table measurement (
+    id         bigserial    primary key,
+    sensor     varchar(100) not null,
+    value      double precision not null,
+    unit       varchar(20)  not null,
+    timestamp  timestamp    not null
+);
+
+create index idx_measurement_sensor on measurement(sensor);
+create index idx_measurement_timestamp on measurement(timestamp desc);
+----
+
+== MQTT-Integration
+
+Quarkus SmallRye Reactive Messaging mit dem MQTT-Connector.
+
+=== Topic-Mapping
+
+[cols="3,2,2,1", options="header"]
+|===
+| Topic | Channel-Name | Sensor-Name | Einheit
+
+| `nili3/sensor/nili3_co2/state` | `nili3-co2` | `nili3_co2` | `ppm`
+| `nili3/sensor/nili3_temperature/state` | `nili3-temperature` | `nili3_temperature` | `°C`
+|===
+
+=== `SensorMessageConsumer`
+
+* Empfängt Nachrichten über `@Incoming("nili3-co2")` und `@Incoming("nili3-temperature")`.
+* Parst die Payload als `Double`. Bei `NumberFormatException` wird geloggt und die Nachricht verworfen.
+* Erstellt ein `Measurement`-Objekt und persistiert es über das Repository.
+
+== REST-API
+
+=== `MeasurementResource`
+
+[cols="1,3,2,4", options="header"]
+|===
+| Methode | Pfad | Query-Parameter | Beschreibung
+
+| GET | `/api/measurements` | `sensor` (optional), `page` (default 0), `size` (default 50) | Paginierte Liste, absteigend nach Zeitstempel
+| GET | `/api/measurements/latest` | -- | Letzter Messwert pro Sensor
+|===
+
+Rückgabeformat (JSON):
+
+[source,json]
+----
+{
+  "id": 42,
+  "sensor": "nili3_co2",
+  "value": 427.0,
+  "unit": "ppm",
+  "timestamp": "2026-04-20T10:15:30"
+}
+----
+
+== Konfiguration (`application.properties`)
+
+[source,properties]
+----
+# MQTT
+mp.messaging.incoming.nili3-co2.connector=smallrye-mqtt
+mp.messaging.incoming.nili3-co2.host=vm23.htl-leonding.ac.at
+mp.messaging.incoming.nili3-co2.port=1883
+mp.messaging.incoming.nili3-co2.topic=nili3/sensor/nili3_co2/state
+
+mp.messaging.incoming.nili3-temperature.connector=smallrye-mqtt
+mp.messaging.incoming.nili3-temperature.host=vm23.htl-leonding.ac.at
+mp.messaging.incoming.nili3-temperature.port=1883
+mp.messaging.incoming.nili3-temperature.topic=nili3/sensor/nili3_temperature/state
+
+# Datasource (Dev Services stellt automatisch eine PostgreSQL-DB bereit)
+quarkus.datasource.db-kind=postgresql
+quarkus.datasource.devservices.enabled=true
+
+# Flyway
+quarkus.flyway.migrate-at-start=true
+
+# Hibernate
+quarkus.hibernate-orm.database.generation=none
+----
+
+== Dev- und Produktionsbetrieb
+
+=== Entwicklung
+
+[source,bash]
+----
+./mvnw quarkus:dev
+----
+
+* Dev Services startet automatisch einen PostgreSQL-Container.
+* MQTT-Broker muss erreichbar sein (`vm23.htl-leonding.ac.at:1883`).
+
+=== Produktion
+
+Docker-Compose-Konfiguration in `deployment/docker/docker-compose.yml`:
+
+[source,yaml]
+----
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: sensor-postgres
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  sensor-app:
+    image: sensor-demo:latest
+    container_name: sensor-app
+    depends_on:
+      - postgres
+    environment:
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/db
+      QUARKUS_DATASOURCE_USERNAME: app
+      QUARKUS_DATASOURCE_PASSWORD: app
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
+----
+
+== Abhängigkeiten (Quarkus Extensions)
+
+[source]
+----
+quarkus-resteasy-reactive-jackson
+quarkus-hibernate-orm-panache
+quarkus-jdbc-postgresql
+quarkus-flyway
+quarkus-smallrye-reactive-messaging-mqtt
+----
