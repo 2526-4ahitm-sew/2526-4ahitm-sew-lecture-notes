@@ -565,7 +565,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Thomas Stütz</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2026-04-13</span>
+<span id="revdate">2026-04-27</span>
 <br><span id="revremark">Lecture Notes for Courses at HTL Leonding</span>
 </div>
 <div id="toc" class="toc2">
@@ -643,6 +643,11 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="#_web_sockets">13.1. Web Sockets</a></li>
 <li><a href="#_moa_message_oriented_architecture">13.2. MOA - Message-Oriented Architecture</a></li>
+</ul>
+</li>
+<li><a href="#_2026_04_27">14. 2026-04-27</a>
+<ul class="sectlevel2">
+<li><a href="#_mqtt_message_queuing_telemetry_transport_2">14.1. MQTT (Message Queuing Telemetry Transport)</a></li>
 </ul>
 </li>
 </ul>
@@ -2419,11 +2424,274 @@ bei der der Server Daten an den Client sendet, aber der Client nicht direkt auf 
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2026_04_27"><a class="anchor" href="#_2026_04_27"></a>14. 2026-04-27</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mqtt_message_queuing_telemetry_transport_2"><a class="anchor" href="#_mqtt_message_queuing_telemetry_transport_2"></a>14.1. MQTT (Message Queuing Telemetry Transport)</h3>
+<div class="sect3">
+<h4 id="_übersicht"><a class="anchor" href="#_übersicht"></a>14.1.1. Übersicht</h4>
+<div class="paragraph">
+<p>QoS definiert die <strong>Zustellungsgarantie</strong> einer Nachricht zwischen Sender und Empfänger.
+Es gibt drei Stufen: 0, 1 und 2.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_qos_0_at_most_once_fire_forget"><a class="anchor" href="#_qos_0_at_most_once_fire_forget"></a>14.1.2. QoS 0 – „At most once" (Fire &amp; Forget)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Publisher  →  Broker  →  Subscriber
+           (kein ACK)  (kein ACK)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nachricht wird <strong>maximal einmal</strong> gesendet</p>
+</li>
+<li>
+<p><strong>Keine Bestätigung</strong>, keine Wiederholung</p>
+</li>
+<li>
+<p>Nachricht kann <strong>verloren gehen</strong></p>
+</li>
+<li>
+<p>Schnellste und ressourcenschonendste Variante</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Wann verwenden?</strong> Sensordaten, die sich häufig wiederholen (z. B. Temperatur alle 5 Sekunden) –
+ein verlorenes Paket ist kein Problem.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_qos_1_at_least_once_bestätigt"><a class="anchor" href="#_qos_1_at_least_once_bestätigt"></a>14.1.3. QoS 1 – „At least once" (Bestätigt)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Publisher  →  Broker      →  Subscriber
+           ←  PUBACK      ←  PUBACK</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nachricht wird <strong>mindestens einmal</strong> zugestellt</p>
+</li>
+<li>
+<p>Broker/Client bestätigen den Empfang mit <strong>PUBACK</strong></p>
+</li>
+<li>
+<p>Bei ausbleibender Bestätigung → <strong>Wiederholung</strong></p>
+</li>
+<li>
+<p>Nachricht kann <strong>doppelt ankommen</strong> (Duplicate Delivery)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Wann verwenden?</strong> Wenn keine Nachricht verloren gehen darf, Duplikate aber tolerierbar sind
+(z. B. Alarmmeldungen).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_qos_2_exactly_once_garantiert_einmalig"><a class="anchor" href="#_qos_2_exactly_once_garantiert_einmalig"></a>14.1.4. QoS 2 – „Exactly once" (Garantiert, einmalig)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Publisher  →  Broker       →  Subscriber
+           ←  PUBREC
+           →  PUBREL
+           ←  PUBCOMP      ←  (intern 4-Wege-Handshake)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nachricht wird <strong>genau einmal</strong> zugestellt – garantiert</p>
+</li>
+<li>
+<p><strong>4-Wege-Handshake</strong> (PUBLISH → PUBREC → PUBREL → PUBCOMP)</p>
+</li>
+<li>
+<p>Langsamste Variante, höchster Overhead</p>
+</li>
+<li>
+<p>Keine Duplikate, kein Verlust</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Wann verwenden?</strong> Kritische Aktionen wie Zahlungen, Steuerbefehle, medizinische Daten.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vergleich_auf_einen_blick"><a class="anchor" href="#_vergleich_auf_einen_blick"></a>14.1.5. Vergleich auf einen Blick</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Eigenschaft</th>
+<th class="tableblock halign-left valign-top">QoS 0</th>
+<th class="tableblock halign-left valign-top">QoS 1</th>
+<th class="tableblock halign-left valign-top">QoS 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zustellung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0–1×</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1–n×</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">genau 1×</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Geschwindigkeit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚡⚡⚡</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚡⚡</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚡</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overhead</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mittel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hoch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datenverlust</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">möglich</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nein</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duplikate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">möglich</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nein</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nachrichten gespeichert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ja</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ja</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_qos_in_quarkus_konfigurieren"><a class="anchor" href="#_qos_in_quarkus_konfigurieren"></a>14.1.6. QoS in Quarkus konfigurieren</h4>
+<div class="sect4">
+<h5 id="_application_properties"><a class="anchor" href="#_application_properties"></a>application.properties</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="properties"><span class="c"># Empfangen (Subscriber)
+</span><span class="py">mp.messaging.incoming.sensor-data.qos</span><span class="p">=</span><span class="s">1</span>
+
+<span class="c"># Senden (Publisher)
+</span><span class="py">mp.messaging.outgoing.sensor-data.qos</span><span class="p">=</span><span class="s">2</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_qos_pro_nachricht_im_code_setzen"><a class="anchor" href="#_qos_pro_nachricht_im_code_setzen"></a>QoS pro Nachricht im Code setzen</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Outgoing</span><span class="o">(</span><span class="s">"sensor-data"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Message</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="nf">sendMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">MqttMessage</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"mein/topic"</span><span class="o">,</span> <span class="s">"payload"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">withQosLevel</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>  <span class="c1">// QoS direkt an der Nachricht</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wichtiger_hinweis_publisher_vs_subscriber_qos"><a class="anchor" href="#_wichtiger_hinweis_publisher_vs_subscriber_qos"></a>14.1.7. Wichtiger Hinweis: Publisher vs. Subscriber QoS</h4>
+<div class="paragraph">
+<p>Das <strong>effektive QoS</strong> ist immer das <strong>Minimum</strong> aus Publisher- und Subscriber-QoS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Publisher QoS 2  +  Subscriber QoS 1  =  effektiv QoS 1
+Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_faustregel"><a class="anchor" href="#_faustregel"></a>14.1.8. Faustregel</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>QoS 0</strong> → für häufige, unkritische Daten</p>
+</li>
+<li>
+<p><strong>QoS 1</strong> → für wichtige Ereignisse <em>(Standardwahl)</em></p>
+</li>
+<li>
+<p><strong>QoS 2</strong> → nur wenn absolut nötig – der Overhead lohnt sich selten</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-04-13 19:22:08 UTC
+Last updated 2026-04-27 08:07:56 UTC
 </div>
 </div>
 </body>
