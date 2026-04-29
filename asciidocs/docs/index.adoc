@@ -987,6 +987,81 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 * *QoS 2* → nur wenn absolut nötig – der Overhead lohnt sich selten
 ====
 
+== 2026-04-20 (A.Mahmutovic)
+
+=== MQTT Explorer & Projektarbeit mit Claude Code
+
+==== MQTT Explorer
+* Verbindung mit der VM von Pointic über den MQTT Explorer hergestellt
+* Ermöglicht das Beobachten und Testen von MQTT-Topics in Echtzeit
+
+==== Projektstruktur – Ausgangsprojekt
+* Als Ausgangsprojekt dient das Beispielprojekt von Prof. Stütz
+* Das Projekt ist im `labs`-Ordner zu finden
+
+==== story.md – Story-Spezifikation
+* Vorgehen: `story.md` erstellen → bei Unklarheiten Fragen stellen lassen → daraus werden fachliche und technische Spezifikationen abgeleitet
+* `@docs/story.md` kann von Claude Code direkt eingelesen werden
+* Im Chat werden die URLs für die Datenabfrage angegeben
+
+==== Backup-Strategie mit chat.md
+* Den gesamten Chat mit Claude Code in eine neue Datei `chat.md` kopieren
+* Zweck: Sicherung des Chats als Backup bei Verlust
+* Frage: *Warum löscht man Backups nach 30 Tagen?*
+** Speicherplatz: Unbegrenztes Aufbewahren aller Backups würde enormen Speicherplatz verbrauchen
+** Datenschutz (DSGVO): Personenbezogene Daten dürfen nicht länger als nötig gespeichert werden
+** Aktualität: Sehr alte Backups sind meist nicht mehr wiederherstellbar oder relevant
+
+==== Automatisch erstellte Spezifikationsdateien
+* Auf Basis der `story.md` hat Claude Code folgende Dateien generiert:
+** `fsd.md` – Fachliche Spezifikation
+** `technisch-spec.md` – Technische Spezifikation
+* Anschließend: Analyse der Tech-Spec und Korrektur bei Bedarf
+
+==== Zwischeninfos: Token-Verbrauch & Effizienz
+* Token-Verbrauch abfragen: Claude-Webseite → *Profile → Settings → Usage*
+* *Caveman* installieren: Tool zum Kürzen von Prompts → spart Token
+* Hintergrund: Kürzere, präzisere Prompts reduzieren den Token-Verbrauch erheblich
+
+
+== 2026-04-27 (A. Mahmutovic)
+
+=== Softwaretesten – User Stories, Akzeptanzkriterien & Testmethoden
+
+==== User Stories
+* Eine User Story beschreibt eine Anforderung aus Sicht des Benutzers
+* Format: *„Als [Rolle] möchte ich [Funktion], damit [Business Benefit]."*
+* Der *Business Benefit* ist entscheidend – er begründet, warum die Funktion überhaupt umgesetzt wird
+* Beispiel: „Als Kunde möchte ich meine Bestellung verfolgen, damit ich weiß, wann sie ankommt."
+
+==== Akzeptanzkriterien
+* Definieren, wann eine User Story als *fertig* gilt
+* Warum sind sie wichtig?
+** Man kann feststellen, ob eine Funktion vollständig umgesetzt wurde
+** Sie sind *messbar* und *überprüfbar*
+** Sie erleichtern Entwicklern die Arbeit, da die Erwartungen klar formuliert sind
+** Sie ermöglichen grobe Funktionstests bereits vor der Implementierung
+
+==== Testmethoden nach den Akzeptanzkriterien
+
+===== Grenzwertanalyse (Boundary Value Analysis)
+* Testet die *Grenzen* von Eingabebereichen
+* Fehler treten häufig an den Rändern eines Wertebereichs auf
+* Beispiel: Wenn ein Feld Zahlen von 1–100 akzeptiert, werden die Werte 0, 1, 100 und 101 getestet
+
+===== Äquivalenzklassenanalyse (Equivalence Class Partitioning)
+* Teilt Eingabedaten in *Klassen* auf, die sich gleichartig verhalten
+* Es reicht, einen Repräsentanten pro Klasse zu testen
+* Beispiel: Eintrittskarten
++
+[cols="1,2,2", options="header"]
+|===
+| Klasse | Beschreibung | Beispielwert
+| Gültig | Alter zwischen 6 und 17 Jahren | 12
+| Ungültig (zu jung) | Alter unter 6 Jahren | 3
+| Ungültig (zu alt) | Alter über 17 Jahren | 25
+|===
+
 
 
 
