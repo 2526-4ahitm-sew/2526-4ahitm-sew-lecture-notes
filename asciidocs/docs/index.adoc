@@ -1087,4 +1087,6 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 * Zum Schluss MQTT hinzufügen und deployen
 
 
+==== Termin
 
+* Abgabe: 13.05.2026, 23:59 Uhr
