@@ -651,7 +651,7 @@ pre.rouge .gs {
 </ul>
 </li>
 <li><a href="#_2026_05_11">15. 2026-05-11</a>
-<ul class="sectlevel3">
+<ul class="sectlevel2">
 <li><a href="#_vergleich_auf_einen_blick">15.1. Vergleich auf einen Blick</a></li>
 <li><a href="#_qos_in_quarkus_konfigurieren">15.2. QoS in Quarkus konfigurieren</a></li>
 <li><a href="#_wichtiger_hinweis_publisher_vs_subscriber_qos">15.3. Wichtiger Hinweis: Publisher vs. Subscriber QoS</a></li>
@@ -667,6 +667,7 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden">17.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</a></li>
 <li><a href="#_lab_08_aufgabenstellung_präzisierung">17.2. Lab 08 - Aufgabenstellung Präzisierung</a></li>
+<li><a href="#_stoffumfang_4_test">17.3. Stoffumfang 4. Test</a></li>
 </ul>
 </li>
 </ul>
@@ -2582,8 +2583,8 @@ ein verlorenes Paket ist kein Problem.</p>
 <div class="sect1">
 <h2 id="_2026_05_11"><a class="anchor" href="#_2026_05_11"></a>15. 2026-05-11</h2>
 <div class="sectionbody">
-<div class="sect3">
-<h4 id="_vergleich_auf_einen_blick"><a class="anchor" href="#_vergleich_auf_einen_blick"></a>15.1. Vergleich auf einen Blick</h4>
+<div class="sect2">
+<h3 id="_vergleich_auf_einen_blick"><a class="anchor" href="#_vergleich_auf_einen_blick"></a>15.1. Vergleich auf einen Blick</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2639,10 +2640,10 @@ ein verlorenes Paket ist kein Problem.</p>
 </tbody>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_qos_in_quarkus_konfigurieren"><a class="anchor" href="#_qos_in_quarkus_konfigurieren"></a>15.2. QoS in Quarkus konfigurieren</h3>
 <div class="sect3">
-<h4 id="_qos_in_quarkus_konfigurieren"><a class="anchor" href="#_qos_in_quarkus_konfigurieren"></a>15.2. QoS in Quarkus konfigurieren</h4>
-<div class="sect4">
-<h5 id="_application_properties"><a class="anchor" href="#_application_properties"></a>application.properties</h5>
+<h4 id="_application_properties"><a class="anchor" href="#_application_properties"></a>15.2.1. application.properties</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="properties"><span class="c"># Empfangen (Subscriber)
@@ -2653,8 +2654,8 @@ ein verlorenes Paket ist kein Problem.</p>
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_qos_pro_nachricht_im_code_setzen"><a class="anchor" href="#_qos_pro_nachricht_im_code_setzen"></a>QoS pro Nachricht im Code setzen</h5>
+<div class="sect3">
+<h4 id="_qos_pro_nachricht_im_code_setzen"><a class="anchor" href="#_qos_pro_nachricht_im_code_setzen"></a>15.2.2. QoS pro Nachricht im Code setzen</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java"><span class="nd">@Outgoing</span><span class="o">(</span><span class="s">"sensor-data"</span><span class="o">)</span>
@@ -2666,8 +2667,8 @@ ein verlorenes Paket ist kein Problem.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_wichtiger_hinweis_publisher_vs_subscriber_qos"><a class="anchor" href="#_wichtiger_hinweis_publisher_vs_subscriber_qos"></a>15.3. Wichtiger Hinweis: Publisher vs. Subscriber QoS</h4>
+<div class="sect2">
+<h3 id="_wichtiger_hinweis_publisher_vs_subscriber_qos"><a class="anchor" href="#_wichtiger_hinweis_publisher_vs_subscriber_qos"></a>15.3. Wichtiger Hinweis: Publisher vs. Subscriber QoS</h3>
 <div class="paragraph">
 <p>Das <strong>effektive QoS</strong> ist immer das <strong>Minimum</strong> aus Publisher- und Subscriber-QoS:</p>
 </div>
@@ -2681,8 +2682,8 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 <p>Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_faustregel"><a class="anchor" href="#_faustregel"></a>15.4. Faustregel</h4>
+<div class="sect2">
+<h3 id="_faustregel"><a class="anchor" href="#_faustregel"></a>15.4. Faustregel</h3>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -3015,13 +3016,52 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_stoffumfang_4_test"><a class="anchor" href="#_stoffumfang_4_test"></a>17.3. Stoffumfang 4. Test</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Quarkus</p>
+<div class="ulist">
+<ul>
+<li>
+<p>rest</p>
+</li>
+<li>
+<p>graphQL</p>
+</li>
+<li>
+<p>WebSockets</p>
+</li>
+<li>
+<p>MQTT</p>
+</li>
+<li>
+<p>SSE</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Angular</p>
+<div class="ulist">
+<ul>
+<li>
+<p>signals</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-05-11 07:23:14 UTC
+Last updated 2026-05-11 09:11:56 UTC
 </div>
 </div>
 </body>
