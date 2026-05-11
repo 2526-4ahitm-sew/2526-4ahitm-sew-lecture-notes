@@ -565,7 +565,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Thomas Stütz</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2026-04-27</span>
+<span id="revdate">2026-05-11</span>
 <br><span id="revremark">Lecture Notes for Courses at HTL Leonding</span>
 </div>
 <div id="toc" class="toc2">
@@ -648,6 +648,16 @@ pre.rouge .gs {
 <li><a href="#_2026_04_27">14. 2026-04-27</a>
 <ul class="sectlevel2">
 <li><a href="#_mqtt_message_queuing_telemetry_transport_2">14.1. MQTT (Message Queuing Telemetry Transport)</a></li>
+</ul>
+</li>
+<li><a href="#_2026_04_20_a_mahmutovic">15. 2026-04-20 (A.Mahmutovic)</a>
+<ul class="sectlevel2">
+<li><a href="#_mqtt_explorer_projektarbeit_mit_claude_code">15.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</a></li>
+</ul>
+</li>
+<li><a href="#_2026_04_27_a_mahmutovic">16. 2026-04-27 (A. Mahmutovic)</a>
+<ul class="sectlevel2">
+<li><a href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden">16.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</a></li>
 </ul>
 </li>
 </ul>
@@ -2687,11 +2697,251 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2026_04_20_a_mahmutovic"><a class="anchor" href="#_2026_04_20_a_mahmutovic"></a>15. 2026-04-20 (A.Mahmutovic)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mqtt_explorer_projektarbeit_mit_claude_code"><a class="anchor" href="#_mqtt_explorer_projektarbeit_mit_claude_code"></a>15.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</h3>
+<div class="sect3">
+<h4 id="_mqtt_explorer"><a class="anchor" href="#_mqtt_explorer"></a>15.1.1. MQTT Explorer</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Verbindung mit der VM von Pointic über den MQTT Explorer hergestellt</p>
+</li>
+<li>
+<p>Ermöglicht das Beobachten und Testen von MQTT-Topics in Echtzeit</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_projektstruktur_ausgangsprojekt"><a class="anchor" href="#_projektstruktur_ausgangsprojekt"></a>15.1.2. Projektstruktur – Ausgangsprojekt</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Als Ausgangsprojekt dient das Beispielprojekt von Prof. Stütz</p>
+</li>
+<li>
+<p>Das Projekt ist im <code>labs</code>-Ordner zu finden</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_story_md_story_spezifikation"><a class="anchor" href="#_story_md_story_spezifikation"></a>15.1.3. story.md – Story-Spezifikation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Vorgehen: <code>story.md</code> erstellen → bei Unklarheiten Fragen stellen lassen → daraus werden fachliche und technische Spezifikationen abgeleitet</p>
+</li>
+<li>
+<p><code>@docs/story.md</code> kann von Claude Code direkt eingelesen werden</p>
+</li>
+<li>
+<p>Im Chat werden die URLs für die Datenabfrage angegeben</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_backup_strategie_mit_chat_md"><a class="anchor" href="#_backup_strategie_mit_chat_md"></a>15.1.4. Backup-Strategie mit chat.md</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Den gesamten Chat mit Claude Code in eine neue Datei <code>chat.md</code> kopieren</p>
+</li>
+<li>
+<p>Zweck: Sicherung des Chats als Backup bei Verlust</p>
+</li>
+<li>
+<p>Frage: <strong>Warum löscht man Backups nach 30 Tagen?</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Speicherplatz: Unbegrenztes Aufbewahren aller Backups würde enormen Speicherplatz verbrauchen</p>
+</li>
+<li>
+<p>Datenschutz (DSGVO): Personenbezogene Daten dürfen nicht länger als nötig gespeichert werden</p>
+</li>
+<li>
+<p>Aktualität: Sehr alte Backups sind meist nicht mehr wiederherstellbar oder relevant</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_automatisch_erstellte_spezifikationsdateien"><a class="anchor" href="#_automatisch_erstellte_spezifikationsdateien"></a>15.1.5. Automatisch erstellte Spezifikationsdateien</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Auf Basis der <code>story.md</code> hat Claude Code folgende Dateien generiert:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fsd.md</code> – Fachliche Spezifikation</p>
+</li>
+<li>
+<p><code>technisch-spec.md</code> – Technische Spezifikation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Anschließend: Analyse der Tech-Spec und Korrektur bei Bedarf</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_zwischeninfos_token_verbrauch_effizienz"><a class="anchor" href="#_zwischeninfos_token_verbrauch_effizienz"></a>15.1.6. Zwischeninfos: Token-Verbrauch &amp; Effizienz</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Token-Verbrauch abfragen: Claude-Webseite → <strong>Profile → Settings → Usage</strong></p>
+</li>
+<li>
+<p><strong>Caveman</strong> installieren: Tool zum Kürzen von Prompts → spart Token</p>
+</li>
+<li>
+<p>Hintergrund: Kürzere, präzisere Prompts reduzieren den Token-Verbrauch erheblich</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2026_04_27_a_mahmutovic"><a class="anchor" href="#_2026_04_27_a_mahmutovic"></a>16. 2026-04-27 (A. Mahmutovic)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"><a class="anchor" href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"></a>16.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</h3>
+<div class="sect3">
+<h4 id="_user_stories"><a class="anchor" href="#_user_stories"></a>16.1.1. User Stories</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Eine User Story beschreibt eine Anforderung aus Sicht des Benutzers</p>
+</li>
+<li>
+<p>Format: <strong>„Als [Rolle] möchte ich [Funktion], damit [Business Benefit]."</strong></p>
+</li>
+<li>
+<p>Der <strong>Business Benefit</strong> ist entscheidend – er begründet, warum die Funktion überhaupt umgesetzt wird</p>
+</li>
+<li>
+<p>Beispiel: „Als Kunde möchte ich meine Bestellung verfolgen, damit ich weiß, wann sie ankommt."</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_akzeptanzkriterien"><a class="anchor" href="#_akzeptanzkriterien"></a>16.1.2. Akzeptanzkriterien</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Definieren, wann eine User Story als <strong>fertig</strong> gilt</p>
+</li>
+<li>
+<p>Warum sind sie wichtig?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Man kann feststellen, ob eine Funktion vollständig umgesetzt wurde</p>
+</li>
+<li>
+<p>Sie sind <strong>messbar</strong> und <strong>überprüfbar</strong></p>
+</li>
+<li>
+<p>Sie erleichtern Entwicklern die Arbeit, da die Erwartungen klar formuliert sind</p>
+</li>
+<li>
+<p>Sie ermöglichen grobe Funktionstests bereits vor der Implementierung</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_testmethoden_nach_den_akzeptanzkriterien"><a class="anchor" href="#_testmethoden_nach_den_akzeptanzkriterien"></a>16.1.3. Testmethoden nach den Akzeptanzkriterien</h4>
+<div class="sect4">
+<h5 id="_grenzwertanalyse_boundary_value_analysis"><a class="anchor" href="#_grenzwertanalyse_boundary_value_analysis"></a>Grenzwertanalyse (Boundary Value Analysis)</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Testet die <strong>Grenzen</strong> von Eingabebereichen</p>
+</li>
+<li>
+<p>Fehler treten häufig an den Rändern eines Wertebereichs auf</p>
+</li>
+<li>
+<p>Beispiel: Wenn ein Feld Zahlen von 1–100 akzeptiert, werden die Werte 0, 1, 100 und 101 getestet</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_äquivalenzklassenanalyse_equivalence_class_partitioning"><a class="anchor" href="#_äquivalenzklassenanalyse_equivalence_class_partitioning"></a>Äquivalenzklassenanalyse (Equivalence Class Partitioning)</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Teilt Eingabedaten in <strong>Klassen</strong> auf, die sich gleichartig verhalten</p>
+</li>
+<li>
+<p>Es reicht, einen Repräsentanten pro Klasse zu testen</p>
+</li>
+<li>
+<p>Beispiel: Eintrittskarten</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Klasse</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+<th class="tableblock halign-left valign-top">Beispielwert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gültig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alter zwischen 6 und 17 Jahren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ungültig (zu jung)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alter unter 6 Jahren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ungültig (zu alt)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alter über 17 Jahren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-04-27 08:07:56 UTC
+Last updated 2026-05-11 07:16:28 UTC
 </div>
 </div>
 </body>
