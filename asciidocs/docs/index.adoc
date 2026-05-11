@@ -922,7 +922,7 @@ Publisher  →  Broker       →  Subscriber
 == 2026-05-11
 
 
-==== Vergleich auf einen Blick
+=== Vergleich auf einen Blick
 
 [cols="1,1,1,1", options="header"]
 |===
@@ -938,9 +938,9 @@ Publisher  →  Broker       →  Subscriber
 
 
 
-==== QoS in Quarkus konfigurieren
+=== QoS in Quarkus konfigurieren
 
-===== application.properties
+==== application.properties
 
 [source,properties]
 ----
@@ -951,7 +951,7 @@ mp.messaging.incoming.sensor-data.qos=1
 mp.messaging.outgoing.sensor-data.qos=2
 ----
 
-===== QoS pro Nachricht im Code setzen
+==== QoS pro Nachricht im Code setzen
 
 [source,java]
 ----
@@ -964,7 +964,7 @@ public Message<byte[]> sendMessage() {
 
 
 
-==== Wichtiger Hinweis: Publisher vs. Subscriber QoS
+=== Wichtiger Hinweis: Publisher vs. Subscriber QoS
 
 Das *effektive QoS* ist immer das *Minimum* aus Publisher- und Subscriber-QoS:
 
@@ -978,7 +978,7 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 
 
 
-==== Faustregel
+=== Faustregel
 
 [TIP]
 ====
@@ -1090,3 +1090,18 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 ==== Termin
 
 * Abgabe: 13.05.2026, 23:59 Uhr
+
+
+=== Stoffumfang 4. Test
+
+* Quarkus
+
+** rest
+** graphQL
+** WebSockets
+** MQTT
+** SSE
+
+* Angular
+
+** signals
