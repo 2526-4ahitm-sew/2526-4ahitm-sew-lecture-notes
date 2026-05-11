@@ -650,14 +650,23 @@ pre.rouge .gs {
 <li><a href="#_mqtt_message_queuing_telemetry_transport_2">14.1. MQTT (Message Queuing Telemetry Transport)</a></li>
 </ul>
 </li>
-<li><a href="#_2026_04_20_a_mahmutovic">15. 2026-04-20 (A.Mahmutovic)</a>
-<ul class="sectlevel2">
-<li><a href="#_mqtt_explorer_projektarbeit_mit_claude_code">15.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</a></li>
+<li><a href="#_2026_05_11">15. 2026-05-11</a>
+<ul class="sectlevel3">
+<li><a href="#_vergleich_auf_einen_blick">15.1. Vergleich auf einen Blick</a></li>
+<li><a href="#_qos_in_quarkus_konfigurieren">15.2. QoS in Quarkus konfigurieren</a></li>
+<li><a href="#_wichtiger_hinweis_publisher_vs_subscriber_qos">15.3. Wichtiger Hinweis: Publisher vs. Subscriber QoS</a></li>
+<li><a href="#_faustregel">15.4. Faustregel</a></li>
 </ul>
 </li>
-<li><a href="#_2026_04_27_a_mahmutovic">16. 2026-04-27 (A. Mahmutovic)</a>
+<li><a href="#_2026_04_20_a_mahmutovic">16. 2026-04-20 (A.Mahmutovic)</a>
 <ul class="sectlevel2">
-<li><a href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden">16.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</a></li>
+<li><a href="#_mqtt_explorer_projektarbeit_mit_claude_code">16.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</a></li>
+</ul>
+</li>
+<li><a href="#_2026_04_27_a_mahmutovic">17. 2026-04-27 [A. Mahmutovic]</a>
+<ul class="sectlevel2">
+<li><a href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden">17.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</a></li>
+<li><a href="#_lab_08_aufgabenstellung_präzisierung">17.2. Lab 08 - Aufgabenstellung Präzisierung</a></li>
 </ul>
 </li>
 </ul>
@@ -2485,7 +2494,6 @@ ein verlorenes Paket ist kein Problem.</p>
 </tr>
 </table>
 </div>
-<hr>
 </div>
 <div class="sect3">
 <h4 id="_qos_1_at_least_once_bestätigt"><a class="anchor" href="#_qos_1_at_least_once_bestätigt"></a>14.1.3. QoS 1 – „At least once" (Bestätigt)</h4>
@@ -2568,8 +2576,14 @@ ein verlorenes Paket ist kein Problem.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2026_05_11"><a class="anchor" href="#_2026_05_11"></a>15. 2026-05-11</h2>
+<div class="sectionbody">
 <div class="sect3">
-<h4 id="_vergleich_auf_einen_blick"><a class="anchor" href="#_vergleich_auf_einen_blick"></a>14.1.5. Vergleich auf einen Blick</h4>
+<h4 id="_vergleich_auf_einen_blick"><a class="anchor" href="#_vergleich_auf_einen_blick"></a>15.1. Vergleich auf einen Blick</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2626,7 +2640,7 @@ ein verlorenes Paket ist kein Problem.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_qos_in_quarkus_konfigurieren"><a class="anchor" href="#_qos_in_quarkus_konfigurieren"></a>14.1.6. QoS in Quarkus konfigurieren</h4>
+<h4 id="_qos_in_quarkus_konfigurieren"><a class="anchor" href="#_qos_in_quarkus_konfigurieren"></a>15.2. QoS in Quarkus konfigurieren</h4>
 <div class="sect4">
 <h5 id="_application_properties"><a class="anchor" href="#_application_properties"></a>application.properties</h5>
 <div class="listingblock">
@@ -2653,7 +2667,7 @@ ein verlorenes Paket ist kein Problem.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_wichtiger_hinweis_publisher_vs_subscriber_qos"><a class="anchor" href="#_wichtiger_hinweis_publisher_vs_subscriber_qos"></a>14.1.7. Wichtiger Hinweis: Publisher vs. Subscriber QoS</h4>
+<h4 id="_wichtiger_hinweis_publisher_vs_subscriber_qos"><a class="anchor" href="#_wichtiger_hinweis_publisher_vs_subscriber_qos"></a>15.3. Wichtiger Hinweis: Publisher vs. Subscriber QoS</h4>
 <div class="paragraph">
 <p>Das <strong>effektive QoS</strong> ist immer das <strong>Minimum</strong> aus Publisher- und Subscriber-QoS:</p>
 </div>
@@ -2668,7 +2682,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_faustregel"><a class="anchor" href="#_faustregel"></a>14.1.8. Faustregel</h4>
+<h4 id="_faustregel"><a class="anchor" href="#_faustregel"></a>15.4. Faustregel</h4>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -2696,14 +2710,13 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="_2026_04_20_a_mahmutovic"><a class="anchor" href="#_2026_04_20_a_mahmutovic"></a>15. 2026-04-20 (A.Mahmutovic)</h2>
+<h2 id="_2026_04_20_a_mahmutovic"><a class="anchor" href="#_2026_04_20_a_mahmutovic"></a>16. 2026-04-20 (A.Mahmutovic)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_mqtt_explorer_projektarbeit_mit_claude_code"><a class="anchor" href="#_mqtt_explorer_projektarbeit_mit_claude_code"></a>15.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</h3>
+<h3 id="_mqtt_explorer_projektarbeit_mit_claude_code"><a class="anchor" href="#_mqtt_explorer_projektarbeit_mit_claude_code"></a>16.1. MQTT Explorer &amp; Projektarbeit mit Claude Code</h3>
 <div class="sect3">
-<h4 id="_mqtt_explorer"><a class="anchor" href="#_mqtt_explorer"></a>15.1.1. MQTT Explorer</h4>
+<h4 id="_mqtt_explorer"><a class="anchor" href="#_mqtt_explorer"></a>16.1.1. MQTT Explorer</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2716,7 +2729,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_projektstruktur_ausgangsprojekt"><a class="anchor" href="#_projektstruktur_ausgangsprojekt"></a>15.1.2. Projektstruktur – Ausgangsprojekt</h4>
+<h4 id="_projektstruktur_ausgangsprojekt"><a class="anchor" href="#_projektstruktur_ausgangsprojekt"></a>16.1.2. Projektstruktur – Ausgangsprojekt</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2729,7 +2742,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_story_md_story_spezifikation"><a class="anchor" href="#_story_md_story_spezifikation"></a>15.1.3. story.md – Story-Spezifikation</h4>
+<h4 id="_story_md_story_spezifikation"><a class="anchor" href="#_story_md_story_spezifikation"></a>16.1.3. story.md – Story-Spezifikation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2745,7 +2758,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_backup_strategie_mit_chat_md"><a class="anchor" href="#_backup_strategie_mit_chat_md"></a>15.1.4. Backup-Strategie mit chat.md</h4>
+<h4 id="_backup_strategie_mit_chat_md"><a class="anchor" href="#_backup_strategie_mit_chat_md"></a>16.1.4. Backup-Strategie mit chat.md</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2774,7 +2787,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_automatisch_erstellte_spezifikationsdateien"><a class="anchor" href="#_automatisch_erstellte_spezifikationsdateien"></a>15.1.5. Automatisch erstellte Spezifikationsdateien</h4>
+<h4 id="_automatisch_erstellte_spezifikationsdateien"><a class="anchor" href="#_automatisch_erstellte_spezifikationsdateien"></a>16.1.5. Automatisch erstellte Spezifikationsdateien</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2797,7 +2810,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_zwischeninfos_token_verbrauch_effizienz"><a class="anchor" href="#_zwischeninfos_token_verbrauch_effizienz"></a>15.1.6. Zwischeninfos: Token-Verbrauch &amp; Effizienz</h4>
+<h4 id="_zwischeninfos_token_verbrauch_effizienz"><a class="anchor" href="#_zwischeninfos_token_verbrauch_effizienz"></a>16.1.6. Zwischeninfos: Token-Verbrauch &amp; Effizienz</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2816,12 +2829,12 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2026_04_27_a_mahmutovic"><a class="anchor" href="#_2026_04_27_a_mahmutovic"></a>16. 2026-04-27 (A. Mahmutovic)</h2>
+<h2 id="_2026_04_27_a_mahmutovic"><a class="anchor" href="#_2026_04_27_a_mahmutovic"></a>17. 2026-04-27 [A. Mahmutovic]</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"><a class="anchor" href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"></a>16.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</h3>
+<h3 id="_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"><a class="anchor" href="#_softwaretesten_user_stories_akzeptanzkriterien_testmethoden"></a>17.1. Softwaretesten – User Stories, Akzeptanzkriterien &amp; Testmethoden</h3>
 <div class="sect3">
-<h4 id="_user_stories"><a class="anchor" href="#_user_stories"></a>16.1.1. User Stories</h4>
+<h4 id="_user_stories"><a class="anchor" href="#_user_stories"></a>17.1.1. User Stories</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2840,7 +2853,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_akzeptanzkriterien"><a class="anchor" href="#_akzeptanzkriterien"></a>16.1.2. Akzeptanzkriterien</h4>
+<h4 id="_akzeptanzkriterien"><a class="anchor" href="#_akzeptanzkriterien"></a>17.1.2. Akzeptanzkriterien</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2869,7 +2882,7 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_testmethoden_nach_den_akzeptanzkriterien"><a class="anchor" href="#_testmethoden_nach_den_akzeptanzkriterien"></a>16.1.3. Testmethoden nach den Akzeptanzkriterien</h4>
+<h4 id="_testmethoden_nach_den_akzeptanzkriterien"><a class="anchor" href="#_testmethoden_nach_den_akzeptanzkriterien"></a>17.1.3. Testmethoden nach den Akzeptanzkriterien</h4>
 <div class="sect4">
 <h5 id="_grenzwertanalyse_boundary_value_analysis"><a class="anchor" href="#_grenzwertanalyse_boundary_value_analysis"></a>Grenzwertanalyse (Boundary Value Analysis)</h5>
 <div class="ulist">
@@ -2935,13 +2948,70 @@ Publisher QoS 0  +  Subscriber QoS 2  =  effektiv QoS 0</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_lab_08_aufgabenstellung_präzisierung"><a class="anchor" href="#_lab_08_aufgabenstellung_präzisierung"></a>17.2. Lab 08 - Aufgabenstellung Präzisierung</h3>
+<div class="sect3">
+<h4 id="_ergebnis"><a class="anchor" href="#_ergebnis"></a>17.2.1. Ergebnis</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Erstellung einer beliebigen einfachen Appm mit</p>
+<div class="ulist">
+<ul>
+<li>
+<p>einem REST-Endpoint, der Daten zurückgibt</p>
+</li>
+<li>
+<p>einem GraphQL-Endpoint, der Daten zurückgibt</p>
+</li>
+<li>
+<p>einem WebSocket-Endpoint, der Daten zurückgibt</p>
+</li>
+<li>
+<p>einem MQTT-Client, der Daten zurückgibt (oder empfängt)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Deployment auf Minikube</p>
+</li>
+<li>
+<p>Deployment auf die LeoCloud</p>
+</li>
+<li>
+<p>Dok generieren lassen (mit Begründung in welcher Form die Dok erstellt wird)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vorgangsweise"><a class="anchor" href="#_vorgangsweise"></a>17.2.2. Vorgangsweise</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Zuerst die App mit graphQL erstellen und deployen</p>
+</li>
+<li>
+<p>Danach die REST-API hinzufügen und deployen</p>
+</li>
+<li>
+<p>Anschließend WebSocket hinzufügen und deployen</p>
+</li>
+<li>
+<p>Zum Schluss MQTT hinzufügen und deployen</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2026-05-11 07:16:28 UTC
+Last updated 2026-05-11 07:21:41 UTC
 </div>
 </div>
 </body>
