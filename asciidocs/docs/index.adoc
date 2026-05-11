@@ -877,7 +877,6 @@ Publisher  →  Broker  →  Subscriber
 ein verlorenes Paket ist kein Problem.
 ====
 
----
 
 ==== QoS 1 – „At least once" (Bestätigt)
 
@@ -920,6 +919,7 @@ Publisher  →  Broker       →  Subscriber
 *Wann verwenden?* Kritische Aktionen wie Zahlungen, Steuerbefehle, medizinische Daten.
 ====
 
+== 2026-05-11
 
 
 ==== Vergleich auf einen Blick
@@ -1024,7 +1024,7 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 * Hintergrund: Kürzere, präzisere Prompts reduzieren den Token-Verbrauch erheblich
 
 
-== 2026-04-27 (A. Mahmutovic)
+== 2026-04-27 [A. Mahmutovic]
 
 === Softwaretesten – User Stories, Akzeptanzkriterien & Testmethoden
 
@@ -1062,10 +1062,29 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 | Ungültig (zu alt) | Alter über 17 Jahren | 25
 |===
 
+=== Lab 08 - Aufgabenstellung Präzisierung
+
+==== Ergebnis
+
+* Erstellung einer beliebigen einfachen Appm mit
+** einem REST-Endpoint, der Daten zurückgibt
+** einem GraphQL-Endpoint, der Daten zurückgibt
+** einem WebSocket-Endpoint, der Daten zurückgibt
+** einem MQTT-Client, der Daten zurückgibt (oder empfängt)
+
+* Deployment auf Minikube
+
+* Deployment auf die LeoCloud
+
+* Dok generieren lassen (mit Begründung in welcher Form die Dok erstellt wird)
 
 
+==== Vorgangsweise
 
-
+* Zuerst die App mit graphQL erstellen und deployen
+* Danach die REST-API hinzufügen und deployen
+* Anschließend WebSocket hinzufügen und deployen
+* Zum Schluss MQTT hinzufügen und deployen
 
 
 
