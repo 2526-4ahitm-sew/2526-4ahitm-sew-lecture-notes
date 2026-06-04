@@ -1105,3 +1105,7 @@ Der Broker kann QoS nur so gut garantieren, wie es beide Seiten unterstützen.
 * Angular
 
 ** signals
+
+== 2026-05-11 [Hanan Mehic]
+=== GraphQL Architektur
+image::graphqlarchitektur.png[]
